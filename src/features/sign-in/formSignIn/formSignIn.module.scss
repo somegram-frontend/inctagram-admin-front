@@ -1,0 +1,58 @@
+.card {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 378px;
+  height: fit-content;
+  padding: 24px;
+}
+
+.title {
+  align-self: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  width: 100%;
+  max-width: 348px;
+  margin: 24px 0 18px;
+}
+
+.containerInput {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  row-gap: 24px;
+
+  margin-bottom: 36px;
+}
+
+.registration {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  align-items: center;
+}
+
+.forgotPasswordLink {
+  max-width: 112px;
+  margin: 0 0 24px auto;
+
+  color: var(--color-light-900);
+  text-align: right;
+  text-decoration: none;
+
+  &:visited {
+    color: var(--color-light-900);
+  }
+}
+
+.disabledButton {
+  &:disabled {
+    cursor: default;
+  }
+}

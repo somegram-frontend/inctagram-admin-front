@@ -1,0 +1,8 @@
+.layout {
+  display: flex;
+
+  .childrenContainer {
+    height: 100%;
+    width: calc(100vw - 220px);
+  }
+}

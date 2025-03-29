@@ -1,15 +1,15 @@
 'use client'
+
 import s from './header.module.scss'
 import {
-    FlagRussia,
-    FlagUnitedKingdom,
-    PersonOutline,
-    Select,
+  FlagRussia,
+  FlagUnitedKingdom,
+  PersonOutline,
+  Select,
 } from '@honor-ui/inctagram-ui-kit'
 import Link from 'next/link'
 
 export const Header = () => {
-
     const options = [
         {
             label: (
@@ -31,26 +31,27 @@ export const Header = () => {
         },
     ]
 
+
     return (
         <header className={s.header}>
             <Link href="/" className={s.logo}>
-                Somegram SuperAdmin
+              Somegram<span>Super</span><b>Admin</b>
             </Link>
             <div className={s.register}>
-                <Select
-                    className={s.select}
-                    options={options}
-                    placeholder={
-                        <div className={s.flagContainer}>
-                            <FlagUnitedKingdom /> &nbsp; <span> English</span>
-                        </div>
-                    }
-                />
-                <>
-                    <Link href="/auth/signIn" className={s.buttonForMobile}>
-                        <PersonOutline />
-                    </Link>
-                </>
+              <Select
+                className={s.select}
+                options={options}
+                placeholder={
+                  <div className={s.flagContainer}>
+                    <FlagUnitedKingdom /> &nbsp; <span> English</span>
+                  </div>
+                }
+              />
+              <>
+                <Link href="/src/app/(auth)" className={s.buttonForMobile}>
+                  <PersonOutline />
+                </Link>
+              </>
             </div>
         </header>
     )
