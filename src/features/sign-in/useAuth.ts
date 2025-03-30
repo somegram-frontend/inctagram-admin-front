@@ -1,9 +1,12 @@
-import {SignInInput} from "./api";
-import { signIn, signOut } from 'next-auth/react';
+import { SignInInput } from "./api";
+import { signIn, signOut } from "next-auth/react";
 
-export const signInAdmin = async (payload: SignInInput, route: () => void): Promise<void> => {
+export const signInAdmin = async (
+  payload: SignInInput,
+  route: () => void,
+): Promise<void> => {
   try {
-    const result = await signIn('credentials', {
+    const result = await signIn("credentials", {
       email: payload.email,
       password: payload.password,
       redirect: false,
@@ -25,7 +28,7 @@ export const logout = async () => {
   try {
     await signOut();
   } catch (error) {
-    console.error('Ошибка при выходе:', error);
+    console.error("Ошибка при выходе:", error);
     return Promise.reject(error);
   }
 };

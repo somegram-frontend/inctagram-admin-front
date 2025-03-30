@@ -1,5 +1,5 @@
 import { client } from "@/shared/api/instanse";
-import { gql } from 'graphql-request';
+import { gql } from "graphql-request";
 
 const AUTHORIZE_SUPER_ADMIN = gql`
   mutation AuthorizeSuperAdmin($loginInput: LoginInput!) {
@@ -16,17 +16,21 @@ export interface AuthorizeSuperAdminResponse {
   authorizeSuperAdmin: string;
 }
 
-export const authorizeSuperAdmin = async (loginInput: SignInInput): Promise<string> => {
+export const authorizeSuperAdmin = async (
+  loginInput: SignInInput,
+): Promise<string> => {
   const variables = { loginInput };
 
   try {
-    const data: AuthorizeSuperAdminResponse = await client.request(AUTHORIZE_SUPER_ADMIN, variables);
+    const data: AuthorizeSuperAdminResponse = await client.request(
+      AUTHORIZE_SUPER_ADMIN,
+      variables,
+    );
 
     return data.authorizeSuperAdmin;
-  }catch (e) {
+  } catch (e) {
     return Promise.reject(e);
   }
-
 };
 
 const LOGIN_SA = gql`
@@ -37,12 +41,12 @@ const LOGIN_SA = gql`
 
 export interface FetchLoginSa {
   data: {
-    loginSa: string
-  } | null
+    loginSa: string;
+  } | null;
 }
 
 export const fetchLoginSa = async (token: string) => {
-  client.setHeader('Authorization', token);
+  client.setHeader("Authorization", token);
   const res: FetchLoginSa = await client.request(LOGIN_SA);
 
   return res.data;

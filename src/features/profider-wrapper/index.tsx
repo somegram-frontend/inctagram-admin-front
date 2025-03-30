@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import {queryClient} from "@/shared/api/instanse";
-import {QueryClientProvider} from "@tanstack/react-query";
-import {SessionProvider} from "next-auth/react";
-import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
-import { Slide, ToastContainer } from 'react-toastify'
+import { queryClient } from "@/shared/api/instanse";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { SessionProvider } from "next-auth/react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Slide, ToastContainer } from "react-toastify";
 
-
-export const ProviderWrapper = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-
+export const ProviderWrapper = ({
+  children,
+}: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <SessionProvider >
+    <SessionProvider>
       <QueryClientProvider client={queryClient}>
-          {children}
+        {children}
         <ToastContainer
           autoClose={3000}
           closeOnClick
@@ -20,15 +20,17 @@ export const ProviderWrapper = ({ children }: Readonly<{ children: React.ReactNo
           hideProgressBar={false}
           pauseOnFocusLoss
           pauseOnHover
-          position={'bottom-left'}
+          position={"bottom-left"}
           rtl={false}
           stacked
-          style={{ marginLeft: '10px' }}
-          theme={'dark'}
+          style={{ marginLeft: "10px" }}
+          theme={"dark"}
           transition={Slide}
         />
-        {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+        {process.env.NODE_ENV === "development" && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
       </QueryClientProvider>
     </SessionProvider>
   );
-}
+};

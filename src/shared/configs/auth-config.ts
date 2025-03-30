@@ -1,12 +1,12 @@
-import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { authorizeSuperAdmin, fetchLoginSa } from '@/features/sign-in/api';
+import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { authorizeSuperAdmin, fetchLoginSa } from "@/features/sign-in/api";
 import { Path } from "@/shared/const/path";
 
 export const authConfigs: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      id: 'credentials',
+      id: "credentials",
       credentials: {
         email: {},
         password: {},
@@ -16,27 +16,28 @@ export const authConfigs: NextAuthOptions = {
           return null;
         }
         try {
-          const data = await authorizeSuperAdmin({ email: credentials.email, password: credentials.password })
-
+          const data = await authorizeSuperAdmin({
+            email: credentials.email,
+            password: credentials.password,
+          });
 
           if (data.length === 0) {
             return null;
           }
 
           return {
-            id: 'some-id',
+            id: "some-id",
             email: credentials.email,
             token: data,
           };
         } catch (error) {
           return Promise.reject(error);
         }
-
       },
-    })
+    }),
   ],
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -54,11 +55,11 @@ export const authConfigs: NextAuthOptions = {
       try {
         const data = fetchLoginSa(token.token);
 
-        if(!data){
+        if (!data) {
           return {
             ...token,
-            error: 'RefreshAccessTokenError',
-            token: ''
+            error: "RefreshAccessTokenError",
+            token: "",
           };
         }
 
@@ -67,13 +68,12 @@ export const authConfigs: NextAuthOptions = {
           accessTokenExpires: Date.now() + 30 * 24 * 60 * 60 * 1000,
         };
       } catch (error) {
-
-        console.log(error)
+        console.log(error);
 
         return {
           ...token,
-          error: 'RefreshAccessTokenError',
-          token: ''
+          error: "RefreshAccessTokenError",
+          token: "",
         };
       }
     },

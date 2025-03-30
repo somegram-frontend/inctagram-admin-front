@@ -42,7 +42,7 @@
     }
   }
 
-  &[data-state='open'] {
+  &[data-state="open"] {
     border-color: var(--color-light-100);
     border-radius: 2px 2px 0 0;
 
@@ -101,7 +101,7 @@
 
     &:hover,
     &:focus-visible,
-    &[data-state='checked'] {
+    &[data-state="checked"] {
       color: var(--color-accent-500);
       background-color: var(--color-dark-300);
     }

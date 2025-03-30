@@ -1,45 +1,62 @@
-import React, { forwardRef, useState } from 'react'
-import ReactDatePicker, { type ReactDatePickerCustomHeaderProps } from 'react-datepicker'
-import clsx from 'clsx'
-import { format } from 'date-fns'
-import { enGB } from 'date-fns/locale'
-import s from './datePicker.module.scss'
+import React, { forwardRef, useState } from "react";
+import ReactDatePicker, {
+  type ReactDatePickerCustomHeaderProps,
+} from "react-datepicker";
+import clsx from "clsx";
+import { format } from "date-fns";
+import { enGB } from "date-fns/locale";
+import s from "./datePicker.module.scss";
 import {
   CalendarOutline,
   ChevronLeft,
   ChevronRight,
   Input,
   InputProps,
-  Typography
-} from '@honor-ui/inctagram-ui-kit'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+  Typography,
+} from "@honor-ui/inctagram-ui-kit";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export type DatePickerProps = {
-  disabled?: boolean
-  endDate?: Date | undefined
-  errorMessage?: string
-  label?: string
-  name?: string
-  selectsRange?: boolean
-  setEndDate?: (date: Date | undefined) => void
-  setStartDate: (date: Date | undefined) => void
-  startDate: Date | undefined
-  onChange: (date: Date | null) => void
-}
+  disabled?: boolean;
+  endDate?: Date | undefined;
+  errorMessage?: string;
+  label?: string;
+  name?: string;
+  selectsRange?: boolean;
+  setEndDate?: (date: Date | undefined) => void;
+  setStartDate: (date: Date | undefined) => void;
+  startDate: Date | undefined;
+  onChange: (date: Date | null) => void;
+};
 
-const RenderCustomInput = forwardRef<HTMLInputElement, InputProps & { startDate?: Date }>(
-  ({ className, name, disabled, errorMessage, label, startDate, ...rest }, ref) => {
-    const router = useRouter()
-    const userId = router.query.id
+const RenderCustomInput = forwardRef<
+  HTMLInputElement,
+  InputProps & { startDate?: Date }
+>(
+  (
+    { className, name, disabled, errorMessage, label, startDate, ...rest },
+    ref,
+  ) => {
+    const router = useRouter();
+    const userId = router.query.id;
 
     return (
       <>
         <Input
           ref={ref}
           name={name}
-          className={clsx(s.dateInput, s.input, errorMessage && s.hasError, className)}
-          icon={<CalendarOutline className={clsx(s.calendarIcon, errorMessage && s.hasError)} />}
+          className={clsx(
+            s.dateInput,
+            s.input,
+            errorMessage && s.hasError,
+            className,
+          )}
+          icon={
+            <CalendarOutline
+              className={clsx(s.calendarIcon, errorMessage && s.hasError)}
+            />
+          }
           label={label}
           disabled={disabled}
           {...rest}
@@ -50,20 +67,23 @@ const RenderCustomInput = forwardRef<HTMLInputElement, InputProps & { startDate?
             <Typography
               as={Link}
               href={{
-                pathname: '/privacyPolicy',
-                query: { href: `user/${userId}/profile`, title: 'Back to Profile Settings' },
+                pathname: "/privacyPolicy",
+                query: {
+                  href: `user/${userId}/profile`,
+                  title: "Back to Profile Settings",
+                },
               }}
-              variant={'medium_text14'}
+              variant={"medium_text14"}
             >
               Privacy Policy
             </Typography>
           </div>
         )}
       </>
-    )
+    );
   },
-)
-RenderCustomInput.displayName = 'RenderCustomInput'
+);
+RenderCustomInput.displayName = "RenderCustomInput";
 
 const RenderCustomHeader = ({
   date,
@@ -73,17 +93,19 @@ const RenderCustomHeader = ({
   return (
     <div className={s.headerContainer}>
       <div className={s.monthsYear}>
-        <Typography variant={'bold_text16'}>{format(date, 'dd.MM.yyyy')}</Typography>{' '}
+        <Typography variant={"bold_text16"}>
+          {format(date, "dd.MM.yyyy")}
+        </Typography>{" "}
       </div>
-      <button className={s.button} onClick={decreaseMonth} type={'button'}>
+      <button className={s.button} onClick={decreaseMonth} type={"button"}>
         <ChevronLeft />
       </button>
-      <button className={s.button} onClick={increaseMonth} type={'button'}>
+      <button className={s.button} onClick={increaseMonth} type={"button"}>
         <ChevronRight />
       </button>
     </div>
-  )
-}
+  );
+};
 
 export const DatePicker = (props: DatePickerProps) => {
   const {
@@ -96,40 +118,40 @@ export const DatePicker = (props: DatePickerProps) => {
     setStartDate,
     startDate,
     onChange,
-  } = props
+  } = props;
 
   //TODO: add validation errors
-  const [, setValidationError] = useState<string | undefined>(undefined)
+  const [, setValidationError] = useState<string | undefined>(undefined);
 
   const onChangeHandler = (dates: [Date | null, Date | null] | Date | null) => {
-    if (!dates) return
+    if (!dates) return;
 
     if (Array.isArray(dates)) {
-      if (dates.length !== 2) return
+      if (dates.length !== 2) return;
 
-      const [start, end] = dates
-      setStartDate(start || undefined)
-      setEndDate?.(end || undefined)
+      const [start, end] = dates;
+      setStartDate(start || undefined);
+      setEndDate?.(end || undefined);
     } else {
-      setStartDate(dates || undefined)
+      setStartDate(dates || undefined);
     }
-  }
+  };
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const age = new Date().getFullYear() - date.getFullYear()
+      const age = new Date().getFullYear() - date.getFullYear();
       if (age < 13) {
-        setValidationError('A user under 13 cannot create a profile.')
+        setValidationError("A user under 13 cannot create a profile.");
       } else {
-        setValidationError(undefined)
+        setValidationError(undefined);
       }
     } else {
-      setValidationError(undefined)
+      setValidationError(undefined);
     }
 
-    onChange(date)
-    onChangeHandler(date)
-  }
+    onChange(date);
+    onChangeHandler(date);
+  };
 
   return (
     <div className={s.box}>
@@ -146,19 +168,19 @@ export const DatePicker = (props: DatePickerProps) => {
             startDate={startDate}
           />
         }
-        dateFormat={'dd.MM.yyyy'}
+        dateFormat={"dd.MM.yyyy"}
         dayClassName={() => s.dayDate}
         disabled={disabled}
         endDate={endDate}
         locale={enGB}
         onChange={handleDateChange}
-        popperPlacement={'bottom-start'}
+        popperPlacement={"bottom-start"}
         renderCustomHeader={RenderCustomHeader}
         selected={startDate}
         toggleCalendarOnIconClick
       />
     </div>
-  )
-}
+  );
+};
 
-export default DatePicker
+export default DatePicker;

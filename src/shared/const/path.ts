@@ -1,11 +1,11 @@
 export const Path = {
   Auth: {
-    SignIn: '/signIn',
+    SignIn: "/signIn",
   },
   Admin: {
-    PaymentsList: '/paymentsList',
-    PostsList: '/postsList',
-    Statistics: '/statistics',
-    UserList: '/userList'
-  }
-}
+    PaymentsList: "/paymentsList",
+    PostsList: "/postsList",
+    Statistics: "/statistics",
+    UserList: "/userList",
+  },
+};

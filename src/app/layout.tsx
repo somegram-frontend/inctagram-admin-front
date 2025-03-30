@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import '@honor-ui/inctagram-ui-kit/css'
-import {ProviderWrapper} from "@/features/profider-wrapper";
+import "@honor-ui/inctagram-ui-kit/css";
+import { ProviderWrapper } from "@/features/profider-wrapper";
 import { Header } from "./_shared/ui/header";
 
-import s from './layout.module.scss'
+import s from "./layout.module.scss";
 
 export const metadata: Metadata = {
   title: "Somegram Admin",
@@ -20,12 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <ProviderWrapper>
-        <Header />
-        <div className={s.childrenContainer}>
-          {children}
-        </div>
-      </ProviderWrapper>
+        <ProviderWrapper>
+          <Header />
+          <div className={s.childrenContainer}>{children}</div>
+        </ProviderWrapper>
       </body>
     </html>
   );
