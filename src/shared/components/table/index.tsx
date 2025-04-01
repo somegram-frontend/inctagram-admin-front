@@ -15,6 +15,10 @@ import s from './table.module.scss'
  *       <TableTd>Content 1</TableTd>
  *       <TableTd>Content 2</TableTd>
  *     </TableTr>
+ *     <TableTr>
+ *       <TableTd>Content 1</TableTd>
+ *       <TableTd>Content 2</TableTd>
+ *     </TableTr>
  *   </TableBody>
  * </TableRoot>
  */
@@ -34,7 +38,7 @@ type TableHeadProps = ComponentPropsWithoutRef<"thead">;
 export const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
   ({children, className, ...props}, ref) => {
     return (
-      <thead className={className} {...props} ref={ref}>
+      <thead className={clsx(s.thead, className)} {...props} ref={ref}>
       {children}
       </thead>
     );
