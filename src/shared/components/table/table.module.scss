@@ -1,0 +1,18 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-dark-500);
+}
+
+.thead {
+  background: var(--color-dark-500);
+}
+
+.tr {
+  border-top: 1px solid var(--color-dark-500);
+}
+
+.th, .td {
+  padding: 12px 24px;
+  text-align: left;
+}
