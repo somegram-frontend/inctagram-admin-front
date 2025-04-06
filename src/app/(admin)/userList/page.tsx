@@ -1,5 +1,10 @@
-import {UserList} from "@/features/userList/ui";
+import { UserList } from "@/features/userList/ui";
+import { Suspense } from "react";
 
 export default function UserListPage() {
-  return <div><UserList/></div>;
+  return (
+    <Suspense>
+      <UserList />
+    </Suspense>
+  );
 }
