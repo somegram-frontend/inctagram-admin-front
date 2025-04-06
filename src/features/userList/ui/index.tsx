@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/dropDown";
 import s from "./userList.module.scss";
+import { parseGraphQLError } from "@/shared/utills";
 
 const HEADER_USERS_LIST = [
   "User ID",
@@ -101,15 +102,4 @@ export const UserList = () => {
       />
     </Page>
   );
-};
-const parseGraphQLError = (error: unknown): string => {
-  const err = error as any;
-
-  const graphqlError = err?.response?.errors?.[0];
-  const constraints =
-    graphqlError?.extensions?.message?.message?.[0]?.constraints;
-
-  return constraints
-    ? Object.values(constraints).join(", ")
-    : graphqlError?.message || "Unknown error";
 };
