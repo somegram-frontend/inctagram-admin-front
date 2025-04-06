@@ -5,12 +5,15 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Slide, ToastContainer } from "react-toastify";
+import { SetupAuthHeader } from "@/shared/api/SetupAuthHeader";
 
 export const ProviderWrapper = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <SessionProvider>
+      <SetupAuthHeader />
+
       <QueryClientProvider client={queryClient}>
         {children}
         <ToastContainer
