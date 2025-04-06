@@ -1,0 +1,173 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserBanInfo {
+  banReason: String!
+  banDate: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserModel {
+  id: String!
+  createdAt: DateTime!
+  email: String!
+  username: String!
+  about: String
+  dateOfBirth: DateTime
+  firstName: String
+  lastName: String
+  city: String
+  country: String
+  accountType: AccountType!
+  profileLink: String
+  isDeleted: Boolean!
+  banInfo: UserBanInfo
+  getAvatar: FileModel
+  getPostsPhotos: [FileModel!]
+}
+
+enum AccountType {
+  Personal
+  Business
+}
+
+type FileModel {
+  ownerId: String
+  createdAt: String
+  originalname: String
+  size: Float
+  url: String
+  key: String
+  postId: String
+}
+
+type PaginatedUserModel {
+  pageNumber: Int!
+  pageSize: Int!
+  pagesCount: Int!
+  totalCount: Int!
+  items: [UserModel!]!
+}
+
+type PaymentsModel {
+  subscriptionId: String!
+  subscriptionType: String!
+  price: Float!
+  paymentSystem: String!
+  status: String!
+  dateOfPayment: String!
+  endDateOfSubscription: String!
+  userId: String!
+  username: String!
+  getUser: UserModel
+}
+
+type PaginatedPaymentsModel {
+  pageNumber: Int!
+  pageSize: Int!
+  pagesCount: Int!
+  totalCount: Int!
+  items: [PaymentsModel!]!
+}
+
+type PostModel {
+  id: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  postOwnerInfo: PostOwnerModel!
+  getPostsPhotos: [FileModel!]
+}
+
+type PaginatedPostsModel {
+  totalCount: Int!
+  pageNumber: Int!
+  pagesCount: Int!
+  pageSize: Int!
+  items: [PostModel!]!
+}
+
+type PostOwnerModel {
+  userId: String!
+  username: String!
+  profileUrl: String
+  getAvatar: FileModel
+}
+
+type Query {
+  loginSa: String!
+  getUser(id: String!): UserModel
+  getUsers(queryString: UsersQueryStringInput): PaginatedUserModel!
+  getPaymentsByUser(queryString: PaymentsQueryStringInput!, userId: String!): PaginatedPaymentsModel!
+  getAllPayments(queryString: PaymentsQueryStringInputWithSearch): PaginatedPaymentsModel!
+  getPosts(queryString: PostsQueryStringInput): PaginatedPostsModel!
+}
+
+input UsersQueryStringInput {
+  pageNumber: Int! = 1
+  pageSize: Int! = 8
+  sortDirection: SortDirection! = ASC
+  statusFilter: UserBlockStatus! = ALL
+  search: String
+  sortBy: String! = "username"
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+enum UserBlockStatus {
+  ALL
+  BLOCKED
+  UNBLOCKED
+}
+
+input PaymentsQueryStringInput {
+  pageNumber: Int! = 1
+  pageSize: Int! = 8
+  sortDirection: SortDirection! = ASC
+  sortBy: String! = "dateOfPayment"
+}
+
+input PaymentsQueryStringInputWithSearch {
+  pageNumber: Int! = 1
+  pageSize: Int! = 8
+  sortDirection: SortDirection! = ASC
+  sortBy: String! = "dateOfPayment"
+  search: String
+}
+
+input PostsQueryStringInput {
+  pageNumber: Int! = 1
+  pageSize: Int! = 8
+  sortDirection: SortDirection! = ASC
+  searchByUsername: String
+  sortBy: String! = "createdAt"
+}
+
+type Mutation {
+  authorizeSuperAdmin(loginInput: LoginInput!): String!
+  deleteUser(userId: String!): Boolean!
+  banUser(banUserInput: BanUserInput!): Boolean!
+  unbanUser(userId: String!): Boolean!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input BanUserInput {
+  banReason: String!
+  userId: String!
+}
+
+type Subscription {
+  newPost: PostModel!
+}
