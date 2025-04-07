@@ -1,6 +1,6 @@
-import {ComponentPropsWithoutRef, forwardRef} from "react";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 import clsx from "clsx";
-import s from './table.module.scss'
+import s from "./table.module.scss";
 
 /**
  * <TableRoot>
@@ -24,7 +24,7 @@ import s from './table.module.scss'
  */
 type TableRootProps = ComponentPropsWithoutRef<"table">;
 export const TableRoot = forwardRef<HTMLTableElement, TableRootProps>(
-  ({children, className, ...props}, ref) => {
+  ({ children, className, ...props }, ref) => {
     return (
       <table className={clsx(s.table, className)} {...props} ref={ref}>
         {children}
@@ -36,10 +36,10 @@ TableRoot.displayName = "TableRoot";
 
 type TableHeadProps = ComponentPropsWithoutRef<"thead">;
 export const TableHead = forwardRef<HTMLTableSectionElement, TableHeadProps>(
-  ({children, className, ...props}, ref) => {
+  ({ children, className, ...props }, ref) => {
     return (
       <thead className={clsx(s.thead, className)} {...props} ref={ref}>
-      {children}
+        {children}
       </thead>
     );
   },
@@ -48,7 +48,7 @@ TableHead.displayName = "TableHead";
 
 type TableTrProps = ComponentPropsWithoutRef<"tr">;
 export const TableTr = forwardRef<HTMLTableRowElement, TableTrProps>(
-  ({children, className, ...props}, ref) => {
+  ({ children, className, ...props }, ref) => {
     return (
       <tr className={clsx(s.tr, className)} {...props} ref={ref}>
         {children}
@@ -60,7 +60,7 @@ TableTr.displayName = "TableTr";
 
 type TableThProps = ComponentPropsWithoutRef<"th">;
 export const TableTh = forwardRef<HTMLTableCellElement, TableThProps>(
-  ({children, className, ...props}, ref) => {
+  ({ children, className, ...props }, ref) => {
     return (
       <th className={clsx(s.th, className)} {...props} ref={ref}>
         {children}
@@ -72,7 +72,7 @@ TableTh.displayName = "TableTh";
 
 type TableTdProps = ComponentPropsWithoutRef<"td">;
 export const TableTd = forwardRef<HTMLTableCellElement, TableTdProps>(
-  ({children, className, ...props}, ref) => {
+  ({ children, className, ...props }, ref) => {
     return (
       <td className={clsx(s.td, className)} {...props} ref={ref}>
         {children}
@@ -84,10 +84,10 @@ TableTd.displayName = "TableTd";
 
 type TableBodyProps = ComponentPropsWithoutRef<"tbody">;
 export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
-  ({children, className, ...props}, ref) => {
+  ({ children, className, ...props }, ref) => {
     return (
       <tbody className={className} {...props} ref={ref}>
-      {children}
+        {children}
       </tbody>
     );
   },
