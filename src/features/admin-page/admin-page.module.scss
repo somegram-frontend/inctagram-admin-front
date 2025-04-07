@@ -15,5 +15,7 @@
 
   .childrenContainer {
     width: 100vw !important;
+    display: flex;
+    justify-content: center;
   }
 }

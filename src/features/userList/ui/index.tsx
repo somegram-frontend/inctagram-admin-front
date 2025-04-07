@@ -11,7 +11,7 @@ import {
 } from "@/shared/components/table";
 import { useUsers } from "@/features/userList/model";
 import Pagination from "@/shared/components/pagination/Pagination";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { format } from "date-fns";
@@ -23,9 +23,14 @@ import {
 } from "@/shared/components/dropDown";
 import s from "./userList.module.scss";
 import { parseGraphQLError } from "@/shared/utills";
-import {Block, MoreHorizontalOutline, PersonRemoveOutline} from "@honor-ui/inctagram-ui-kit";
-import {Path} from "@/shared/const/path";
+import {
+  Block,
+  MoreHorizontalOutline,
+  PersonRemoveOutline,
+} from "@honor-ui/inctagram-ui-kit";
+import { Path } from "@/shared/const/path";
 import { Loader } from "@/shared/components/loader";
+import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
 
 const HEADER_USERS_LIST = [
   "User ID",
@@ -36,25 +41,11 @@ const HEADER_USERS_LIST = [
 ];
 export const UserList = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname  = usePathname()
-
-  const pageSize = Number(searchParams.get("pageSize")) || 8;
-  const pageNumber = Number(searchParams.get("pageNumber")) || 1;
+  const { pageNumber, pageSize, setNewParams } = usePaginationParams({});
+  const pathname = usePathname();
 
   const { data, error, isLoading } = useUsers({ pageSize, pageNumber });
 
-  const setNewParams = (params: { pageSize: number; pageNumber: number }) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-
-    newParams.set("pageSize", String(params.pageSize));
-    newParams.set("pageNumber", String(params.pageNumber));
-
-    if (params.pageSize === 8) newParams.delete("pageSize");
-    if (params.pageNumber === 1) newParams.delete("pageNumber");
-
-    router.push(`?${newParams.toString()}`);
-  };
   useEffect(() => {
     if (error) {
       toast.error(parseGraphQLError(error));
@@ -66,8 +57,8 @@ export const UserList = () => {
   }
 
   const navigateToUserInfo = (userId: string) => {
-    router.push(pathname+ '/' + userId + Path.User.UploadedPhotos)
-  }
+    router.push(pathname + "/" + userId + Path.User.UploadedPhotos);
+  };
 
   return (
     <Page>
@@ -91,10 +82,19 @@ export const UserList = () => {
                   <DropdownMenuTrigger className={s.trigger}>
                     ...
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align={'end'}>
-                    <DropdownMenuItem className={s.item}><PersonRemoveOutline/> Delete User</DropdownMenuItem>
-                    <DropdownMenuItem className={s.item}><Block/> Ban in the system</DropdownMenuItem>
-                    <DropdownMenuItem className={s.item} onClick={() => navigateToUserInfo(row.id)} ><MoreHorizontalOutline/> More information</DropdownMenuItem>
+                  <DropdownMenuContent align={"end"}>
+                    <DropdownMenuItem className={s.item}>
+                      <PersonRemoveOutline /> Delete User
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className={s.item}>
+                      <Block /> Ban in the system
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={s.item}
+                      onClick={() => navigateToUserInfo(row.id)}
+                    >
+                      <MoreHorizontalOutline /> More information
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableTd>

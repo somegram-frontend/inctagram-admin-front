@@ -1,39 +1,42 @@
 import { graphql } from "@/shared/configs/gql";
-import { GetPaymentsByUserVariables } from "@/shared/configs/gql/graphql";
 import { client } from "@/shared/api/instanse";
+import { GetPaymentsByUserQueryVariables } from "@/shared/configs/gql/graphql";
 
 const getPaymentsByUser = graphql(`
-  query GetPaymentsByUser {
+  query getPaymentsByUser(
+    $pageNumber: Int!
+    $pageSize: Int!
+    $userId: String!
+  ) {
     getPaymentsByUser(
-       queryString: {
+      queryString: {
         pageNumber: $pageNumber
         pageSize: $pageSize
-        sortBy: "createdAt"
         sortDirection: DESC
       }
-      userId: $userId: String!
+      userId: $userId
     ) {
-        pageNumber
-        pageSize
-        pagesCount
-        totalCount
-        items {
-            subscriptionId
-            subscriptionType
-            price
-            paymentSystem
-            status
-            dateOfPayment
-            endDateOfSubscription
-            userId
-            username
-        }
+      pageNumber
+      pageSize
+      pagesCount
+      totalCount
+      items {
+        subscriptionId
+        subscriptionType
+        price
+        paymentSystem
+        status
+        dateOfPayment
+        endDateOfSubscription
+        userId
+        username
+      }
     }
   }
 `);
 
 export const fetchPaymentsByUser = async (
-  variables: GetPaymentsByUserVariables,
+  variables: GetPaymentsByUserQueryVariables,
 ) => {
   const data = await client.request(getPaymentsByUser, variables);
   return data?.getPaymentsByUser;

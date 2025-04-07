@@ -24,7 +24,8 @@ const HEADER_LIST = [
 ];
 
 export const PaymentsPage = () => {
-  const { data, isLoading, setSearchParams, searchParams } = usePaymentsPage();
+  const { data, isLoading, pageNumber, pageSize, setNewParams } =
+    usePaymentsPage();
 
   if (isLoading) {
     return <Loader />;
@@ -32,8 +33,8 @@ export const PaymentsPage = () => {
 
   return (
     <div className={s.page}>
-      {data?.items !== 0 || data !== null ? (
-        <>
+      {data?.items.length !== 0 ? (
+        <div className={s.content}>
           <TableRoot>
             <TableHead>
               <TableTr>
@@ -43,15 +44,15 @@ export const PaymentsPage = () => {
               </TableTr>
             </TableHead>
             <TableBody>
-              {data?.items.map((row) => (
-                <TableTr key={row.id}>
+              {data?.items.map((row, index) => (
+                <TableTr key={index}>
                   <TableTd>
                     {format(new Date(row.dateOfPayment), "dd.MM.yyyy")}
                   </TableTd>
                   <TableTd>
                     {format(new Date(row.endDateOfSubscription), "dd.MM.yyyy")}
                   </TableTd>
-                  <TableTd>{row.price}</TableTd>
+                  <TableTd style={{ textAlign: "end" }}>{row.price}</TableTd>
                   <TableTd>{row.subscriptionType}</TableTd>
                   <TableTd>{row.paymentSystem}</TableTd>
                 </TableTr>
@@ -61,14 +62,14 @@ export const PaymentsPage = () => {
           <Pagination
             className={s.pagination}
             totalCount={data?.totalCount ?? 0}
-            searchParams={searchParams}
-            setNewParams={setSearchParams}
+            searchParams={{ pageSize, pageNumber }}
+            setNewParams={setNewParams}
             selectBlock={false}
           />
-        </>
+        </div>
       ) : (
-        <div className={s.notPhotosTitle}>
-          <Typography variant={"large"}>Not uploaded Photos</Typography>
+        <div className={s.notPaymentsTitle}>
+          <Typography variant={"large"}>Not Payments</Typography>
         </div>
       )}
     </div>

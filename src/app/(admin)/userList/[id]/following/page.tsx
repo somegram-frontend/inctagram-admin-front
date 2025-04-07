@@ -1,8 +1,5 @@
+import { FollowingPage } from "@/features/view-profile-page/pages/following-page";
 
 export default function Following() {
-  return (
-    <div>
-      Following
-    </div>
-  );
+  return <FollowingPage />;
 }

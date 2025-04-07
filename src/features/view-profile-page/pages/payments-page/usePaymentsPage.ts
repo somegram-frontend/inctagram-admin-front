@@ -1,33 +1,36 @@
-"use client"
+"use client";
 
-import {useParams, useRouter} from "next/navigation";
-import {Path} from "@/shared/const/path";
-import {useQuery} from "@tanstack/react-query";
-import {fetchPaymentsByUser} from "@/features/view-profile-page/api";
-import {useState} from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Path } from "@/shared/const/path";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPaymentsByUser } from "@/features/view-profile-page/api";
+import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
 
 export const usePaymentsPage = () => {
-  const [searchParams, setSearchParams] = useState({pageNumber: 1, pageSize: 8});
   const params = useParams();
   const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
-  const router = useRouter()
+  const router = useRouter();
+  const { pageSize, pageNumber, setNewParams } = usePaginationParams({});
 
   if (!id) {
     router.push(Path.Admin.UserList);
   }
 
-  const { data, isLoading} = useQuery({
-    queryKey: ["viewProfile", id, "Payments"],
-    queryFn: async () => await fetchPaymentsByUser({queryString: {
-        pageNumber: searchParams.pageNumber,
-        pageSize: searchParams.pageSize,
-      }, userId: id  || ''}),
-  })
+  const { data, isLoading } = useQuery({
+    queryKey: ["viewProfile", "Payments", id, pageNumber, pageSize],
+    queryFn: () =>
+      fetchPaymentsByUser({
+        pageNumber,
+        pageSize,
+        userId: id || "",
+      }),
+  });
 
   return {
     data,
     isLoading,
-    searchParams,
-    setSearchParams
-  }
-}
+    pageSize,
+    pageNumber,
+    setNewParams,
+  };
+};
