@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import * as types from "./graphql";
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
 /**
  * Map of all GraphQL operations in the project.
@@ -45,11 +45,15 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation AuthorizeSuperAdmin($loginInput: LoginInput!) {\n    authorizeSuperAdmin(loginInput: $loginInput)\n  }\n"): (typeof documents)["\n  mutation AuthorizeSuperAdmin($loginInput: LoginInput!) {\n    authorizeSuperAdmin(loginInput: $loginInput)\n  }\n"];
+export function graphql(
+  source: "\n  mutation AuthorizeSuperAdmin($loginInput: LoginInput!) {\n    authorizeSuperAdmin(loginInput: $loginInput)\n  }\n",
+): (typeof documents)["\n  mutation AuthorizeSuperAdmin($loginInput: LoginInput!) {\n    authorizeSuperAdmin(loginInput: $loginInput)\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query LoginSa {\n    loginSa\n  }\n"): (typeof documents)["\n  query LoginSa {\n    loginSa\n  }\n"];
+export function graphql(
+  source: "\n  query LoginSa {\n    loginSa\n  }\n",
+): (typeof documents)["\n  query LoginSa {\n    loginSa\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -63,8 +67,10 @@ export function graphql(source: "\n  query getPaymentsByUser(\n    $pageNumber: 
  */
 export function graphql(source: "\n  query getUser($id: String!) {\n    getUser(id: $id) {\n      id\n      createdAt\n      email\n      username\n      about\n      dateOfBirth\n      firstName\n      lastName\n      city\n      country\n      accountType\n      profileLink\n      isDeleted\n      banInfo {\n        banReason\n        banDate\n      }\n      getAvatar {\n        ownerId\n        createdAt\n        originalname\n        size\n        url\n        key\n        postId\n      }\n      getPostsPhotos {\n        ownerId\n        createdAt\n        originalname\n        size\n        url\n        key\n        postId\n      }\n    }\n  }\n"): (typeof documents)["\n  query getUser($id: String!) {\n    getUser(id: $id) {\n      id\n      createdAt\n      email\n      username\n      about\n      dateOfBirth\n      firstName\n      lastName\n      city\n      country\n      accountType\n      profileLink\n      isDeleted\n      banInfo {\n        banReason\n        banDate\n      }\n      getAvatar {\n        ownerId\n        createdAt\n        originalname\n        size\n        url\n        key\n        postId\n      }\n      getPostsPhotos {\n        ownerId\n        createdAt\n        originalname\n        size\n        url\n        key\n        postId\n      }\n    }\n  }\n"];
 
+
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;

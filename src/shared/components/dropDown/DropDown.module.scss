@@ -15,19 +15,19 @@
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.DropdownMenuContent[data-side='top'] {
+.DropdownMenuContent[data-side="top"] {
   animation-name: slide-down-and-fade;
 }
 
-.DropdownMenuContent[data-side='right'] {
+.DropdownMenuContent[data-side="right"] {
   animation-name: slide-left-and-fade;
 }
 
-.DropdownMenuContent[data-side='bottom'] {
+.DropdownMenuContent[data-side="bottom"] {
   animation-name: slide-up-and-fade;
 }
 
-.DropdownMenuContent[data-side='left'] {
+.DropdownMenuContent[data-side="left"] {
   animation-name: slide-right-and-fade;
 }
 
