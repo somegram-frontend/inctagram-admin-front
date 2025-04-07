@@ -1,0 +1,19 @@
+.page {
+  display: flex;
+  justify-content: end;
+  height: 100%;
+
+  .childrenContainer {
+    overflow: auto;
+    height: 100%;
+    width: calc(100vw - 220px);
+  }
+}
+
+.hideSidebar {
+  justify-content: center;
+
+  .childrenContainer {
+    width: 100vw !important;
+  }
+}

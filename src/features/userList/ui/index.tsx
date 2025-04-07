@@ -1,4 +1,5 @@
 "use client";
+
 import { Page } from "@/shared/components/page";
 import {
   TableBody,
@@ -10,7 +11,7 @@ import {
 } from "@/shared/components/table";
 import { useUsers } from "@/features/userList/model";
 import Pagination from "@/shared/components/pagination/Pagination";
-import { useRouter, useSearchParams } from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { format } from "date-fns";
@@ -22,6 +23,9 @@ import {
 } from "@/shared/components/dropDown";
 import s from "./userList.module.scss";
 import { parseGraphQLError } from "@/shared/utills";
+import {Block, MoreHorizontalOutline, PersonRemoveOutline} from "@honor-ui/inctagram-ui-kit";
+import {Path} from "@/shared/const/path";
+import { Loader } from "@/shared/components/loader";
 
 const HEADER_USERS_LIST = [
   "User ID",
@@ -33,6 +37,7 @@ const HEADER_USERS_LIST = [
 export const UserList = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname  = usePathname()
 
   const pageSize = Number(searchParams.get("pageSize")) || 8;
   const pageNumber = Number(searchParams.get("pageNumber")) || 1;
@@ -57,7 +62,11 @@ export const UserList = () => {
   }, [error]);
 
   if (isLoading) {
-    return <div>...Loading</div>;
+    return <Loader />;
+  }
+
+  const navigateToUserInfo = (userId: string) => {
+    router.push(pathname+ '/' + userId + Path.User.UploadedPhotos)
   }
 
   return (
@@ -82,10 +91,10 @@ export const UserList = () => {
                   <DropdownMenuTrigger className={s.trigger}>
                     ...
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem>Элемент</DropdownMenuItem>
-                    <DropdownMenuItem>Элемент</DropdownMenuItem>
-                    <DropdownMenuItem>Элемент</DropdownMenuItem>
+                  <DropdownMenuContent align={'end'}>
+                    <DropdownMenuItem className={s.item}><PersonRemoveOutline/> Delete User</DropdownMenuItem>
+                    <DropdownMenuItem className={s.item}><Block/> Ban in the system</DropdownMenuItem>
+                    <DropdownMenuItem className={s.item} onClick={() => navigateToUserInfo(row.id)} ><MoreHorizontalOutline/> More information</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableTd>

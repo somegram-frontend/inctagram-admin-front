@@ -7,3 +7,26 @@
   cursor: pointer;
   transform: translateY(-3px);
 }
+
+.content[data-alight="right"]{
+  right: 0;
+}
+
+.item {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  gap: 12px;
+  font-size: var(--font-size-s);
+  padding-inline: 5px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--color-dark-300);
+  }
+
+  &:active {
+    background-color: var(--color-light-900);
+  }
+}
