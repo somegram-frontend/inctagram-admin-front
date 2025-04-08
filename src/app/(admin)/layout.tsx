@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import {AdminPage} from "@/features/admin-page";
+import { AdminPage } from "@/features/admin-page";
 
 export const metadata: Metadata = {
   title: "Somegram Admin",
@@ -12,6 +12,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  return <AdminPage>{children}</AdminPage>
+  return <AdminPage>{children}</AdminPage>;
 }

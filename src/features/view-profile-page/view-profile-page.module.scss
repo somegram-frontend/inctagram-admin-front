@@ -71,7 +71,7 @@
       .userName {
       }
 
-      .link {;
+      .link {
         text-decoration: underline;
       }
     }
@@ -91,7 +91,8 @@
         color: var(--color-light-900);
       }
 
-      &Value {}
+      &Value {
+      }
     }
   }
 }
@@ -109,7 +110,7 @@
   }
 }
 
-.childrenContainer  {
+.childrenContainer {
   height: 70%;
   overflow-y: auto;
   max-width: 970px;

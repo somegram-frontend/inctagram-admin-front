@@ -1,6 +1,6 @@
-import {graphql} from "@/shared/configs/gql";
-import {  QueryGetUserArgs } from "@/shared/configs/gql/graphql";
-import {client} from "@/shared/api/instanse";
+import { graphql } from "@/shared/configs/gql";
+import { QueryGetUserArgs } from "@/shared/configs/gql/graphql";
+import { client } from "@/shared/api/instanse";
 
 const getUserQuery = graphql(`
   query getUser($id: String!) {
@@ -48,4 +48,3 @@ export const fetchUser = async (variables: QueryGetUserArgs) => {
   const data = await client.request(getUserQuery, variables);
   return data?.getUser;
 };
-

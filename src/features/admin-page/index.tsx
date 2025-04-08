@@ -1,14 +1,11 @@
 "use client";
 
 import s from "./admin-page.module.scss";
-import {Sidebar} from "@/shared/components/sidebar";
-import {usePathname} from "next/navigation";
+import { Sidebar } from "@/shared/components/sidebar";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
-export const AdminPage =({ children }: {
-  children: React.ReactNode;
-}) => {
-
+export const AdminPage = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const hideSidebar = /^\/userList\/.+/.test(pathname);
 
@@ -18,4 +15,4 @@ export const AdminPage =({ children }: {
       <div className={s.childrenContainer}>{children}</div>
     </div>
   );
-}
+};
