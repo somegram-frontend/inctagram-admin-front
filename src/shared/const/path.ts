@@ -8,4 +8,10 @@ export const Path = {
     Statistics: "/statistics",
     UserList: "/userList",
   },
+  User: {
+    Following: "/following",
+    Followers: "/followers",
+    Payments: "/payments",
+    UploadedPhotos: "/uploadedPhotos",
+  },
 };

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 
-import { Sidebar } from "@/shared/components/sidebar";
-
-import s from "./layout.module.scss";
+import { AdminPage } from "@/features/admin-page";
 
 export const metadata: Metadata = {
   title: "Somegram Admin",
@@ -14,10 +12,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div className={s.layout}>
-      <Sidebar />
-      <div className={s.childrenContainer}>{children}</div>
-    </div>
-  );
+  return <AdminPage>{children}</AdminPage>;
 }

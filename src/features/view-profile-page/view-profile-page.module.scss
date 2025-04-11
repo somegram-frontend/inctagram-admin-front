@@ -1,0 +1,117 @@
+.page {
+  padding-block: 24px;
+  padding-inline: 60px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  max-width: 1120px;
+}
+
+.backBtn {
+  display: flex;
+  gap: 12px;
+  background: none;
+  padding-inline: 0;
+  margin-bottom: 16px;
+
+  &:hover {
+    background: none;
+    text-decoration: underline;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+  }
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &Header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    &Avatar {
+      width: 60px;
+      height: 60px;
+      background-color: var(--color-dark-300);
+      border-radius: 50%;
+      display: flex;
+      align-self: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      span {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-xxl);
+        color: var(--color-light-100);
+        font-weight: var(--font-weight-bold);
+      }
+    }
+
+    &Content {
+      display: flex;
+      flex-direction: column;
+
+      .userName {
+      }
+
+      .link {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &Content {
+    display: flex;
+    gap: 16px;
+
+    &Item {
+      display: flex;
+      flex-direction: column;
+      min-width: 172px;
+      height: 48px;
+
+      &Label {
+        color: var(--color-light-900);
+      }
+
+      &Value {
+      }
+    }
+  }
+}
+
+.tabs {
+  margin-top: 30px;
+  max-width: 1200px;
+  width: 100%;
+
+  button {
+    font-weight: var(--font-weight-bold) !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 195px !important;
+  }
+}
+
+.childrenContainer {
+  height: 70%;
+  overflow-y: auto;
+  max-width: 970px;
+}

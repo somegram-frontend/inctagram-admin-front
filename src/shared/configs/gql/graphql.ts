@@ -281,6 +281,84 @@ export type GetUsersQuery = {
   };
 };
 
+export type GetPaymentsByUserQueryVariables = Exact<{
+  pageNumber: Scalars["Int"]["input"];
+  pageSize: Scalars["Int"]["input"];
+  userId: Scalars["String"]["input"];
+}>;
+
+export type GetPaymentsByUserQuery = {
+  __typename?: "Query";
+  getPaymentsByUser: {
+    __typename?: "PaginatedPaymentsModel";
+    pageNumber: number;
+    pageSize: number;
+    pagesCount: number;
+    totalCount: number;
+    items: Array<{
+      __typename?: "PaymentsModel";
+      subscriptionId: string;
+      subscriptionType: string;
+      price: number;
+      paymentSystem: string;
+      status: string;
+      dateOfPayment: string;
+      endDateOfSubscription: string;
+      userId: string;
+      username: string;
+    }>;
+  };
+};
+
+export type GetUserQueryVariables = Exact<{
+  id: Scalars["String"]["input"];
+}>;
+
+export type GetUserQuery = {
+  __typename?: "Query";
+  getUser?: {
+    __typename?: "UserModel";
+    id: string;
+    createdAt: any;
+    email: string;
+    username: string;
+    about?: string | null;
+    dateOfBirth?: any | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    city?: string | null;
+    country?: string | null;
+    accountType: AccountType;
+    profileLink?: string | null;
+    isDeleted: boolean;
+    banInfo?: {
+      __typename?: "UserBanInfo";
+      banReason: string;
+      banDate: any;
+    } | null;
+    getAvatar?: {
+      __typename?: "FileModel";
+      ownerId?: string | null;
+      createdAt?: string | null;
+      originalname?: string | null;
+      size?: number | null;
+      url?: string | null;
+      key?: string | null;
+      postId?: string | null;
+    } | null;
+    getPostsPhotos?: Array<{
+      __typename?: "FileModel";
+      ownerId?: string | null;
+      createdAt?: string | null;
+      originalname?: string | null;
+      size?: number | null;
+      url?: string | null;
+      key?: string | null;
+      postId?: string | null;
+    }> | null;
+  } | null;
+};
+
 export const AuthorizeSuperAdminDocument = {
   kind: "Document",
   definitions: [
@@ -460,3 +538,287 @@ export const GetUsersDocument = {
     },
   ],
 } as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
+export const GetPaymentsByUserDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "getPaymentsByUser" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageNumber" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageSize" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getPaymentsByUser" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "queryString" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageNumber" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageNumber" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageSize" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageSize" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "sortDirection" },
+                      value: { kind: "EnumValue", value: "DESC" },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "userId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "pageNumber" } },
+                { kind: "Field", name: { kind: "Name", value: "pageSize" } },
+                { kind: "Field", name: { kind: "Name", value: "pagesCount" } },
+                { kind: "Field", name: { kind: "Name", value: "totalCount" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "items" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "subscriptionId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "subscriptionType" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "price" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "paymentSystem" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "status" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "dateOfPayment" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "endDateOfSubscription" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetPaymentsByUserQuery,
+  GetPaymentsByUserQueryVariables
+>;
+export const GetUserDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "getUser" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getUser" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+                { kind: "Field", name: { kind: "Name", value: "username" } },
+                { kind: "Field", name: { kind: "Name", value: "about" } },
+                { kind: "Field", name: { kind: "Name", value: "dateOfBirth" } },
+                { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                { kind: "Field", name: { kind: "Name", value: "city" } },
+                { kind: "Field", name: { kind: "Name", value: "country" } },
+                { kind: "Field", name: { kind: "Name", value: "accountType" } },
+                { kind: "Field", name: { kind: "Name", value: "profileLink" } },
+                { kind: "Field", name: { kind: "Name", value: "isDeleted" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "banInfo" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "banReason" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "banDate" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "getAvatar" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "ownerId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "originalname" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "size" } },
+                      { kind: "Field", name: { kind: "Name", value: "url" } },
+                      { kind: "Field", name: { kind: "Name", value: "key" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "postId" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "getPostsPhotos" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "ownerId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "originalname" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "size" } },
+                      { kind: "Field", name: { kind: "Name", value: "url" } },
+                      { kind: "Field", name: { kind: "Name", value: "key" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "postId" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;

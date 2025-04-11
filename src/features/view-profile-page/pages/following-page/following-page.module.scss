@@ -1,0 +1,14 @@
+.page {
+  margin-top: 2rem;
+}
+
+.notFollowingTitle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block: auto;
+
+  padding-top: calc(200px - 2rem);
+}
