@@ -31,6 +31,7 @@ import {
 import { Path } from "@/shared/const/path";
 import { Loader } from "@/shared/components/loader";
 import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
+import { deleteUser } from "../api/fetchUsers";
 
 const HEADER_USERS_LIST = [
   "User ID",
@@ -44,7 +45,10 @@ export const UserList = () => {
   const { pageNumber, pageSize, setNewParams } = usePaginationParams({});
   const pathname = usePathname();
 
-  const { data, error, isLoading } = useUsers({ pageSize, pageNumber });
+  const { data, error, isLoading, refetch } = useUsers({
+    pageSize,
+    pageNumber,
+  });
 
   useEffect(() => {
     if (error) {
@@ -83,7 +87,14 @@ export const UserList = () => {
                     ...
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align={"end"}>
-                    <DropdownMenuItem className={s.item}>
+                    <DropdownMenuItem
+                      className={s.item}
+                      // тест дропа
+                      onClick={async () => {
+                        await deleteUser(row.id);
+                        refetch();
+                      }}
+                    >
                       <PersonRemoveOutline /> Delete User
                     </DropdownMenuItem>
                     <DropdownMenuItem className={s.item}>
