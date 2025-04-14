@@ -2,6 +2,17 @@
   margin: 36px 0 0;
 }
 
+.idSection {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.blockContainer {
+  width: 24px;
+  height: 24px;
+}
+
 .trigger {
   font-size: var(--font-size-xl);
   cursor: pointer;
