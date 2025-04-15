@@ -3,13 +3,18 @@ import { GetUsersQueryVariables } from "@/shared/configs/gql/graphql";
 import { graphql } from "@/shared/configs/gql";
 
 const getUsersQuery = graphql(`
-  query getUsers($pageNumber: Int!, $pageSize: Int!) {
+  query getUsers(
+    $pageNumber: Int!
+    $pageSize: Int!
+    $sortDirection: SortDirection!
+    $sortBy: String!
+  ) {
     getUsers(
       queryString: {
         pageNumber: $pageNumber
         pageSize: $pageSize
-        sortBy: "createdAt"
-        sortDirection: DESC
+        sortBy: $sortBy
+        sortDirection: $sortDirection
       }
     ) {
       totalCount
