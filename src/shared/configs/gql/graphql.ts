@@ -261,6 +261,8 @@ export type LoginSaQuery = { __typename?: "Query"; loginSa: string };
 export type GetUsersQueryVariables = Exact<{
   pageNumber: Scalars["Int"]["input"];
   pageSize: Scalars["Int"]["input"];
+  sortDirection: SortDirection;
+  sortBy: Scalars["String"]["input"];
 }>;
 
 export type GetUsersQuery = {
@@ -279,6 +281,15 @@ export type GetUsersQuery = {
       createdAt: any;
     }>;
   };
+};
+
+export type DeleteUserMutationVariables = Exact<{
+  userId: Scalars["String"]["input"];
+}>;
+
+export type DeleteUserMutation = {
+  __typename?: "Mutation";
+  deleteUser: boolean;
 };
 
 export type GetPaymentsByUserQueryVariables = Exact<{
@@ -453,6 +464,34 @@ export const GetUsersDocument = {
             type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortDirection" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "SortDirection" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortBy" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -487,15 +526,17 @@ export const GetUsersDocument = {
                       kind: "ObjectField",
                       name: { kind: "Name", value: "sortBy" },
                       value: {
-                        kind: "StringValue",
-                        value: "createdAt",
-                        block: false,
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortBy" },
                       },
                     },
                     {
                       kind: "ObjectField",
                       name: { kind: "Name", value: "sortDirection" },
-                      value: { kind: "EnumValue", value: "DESC" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortDirection" },
+                      },
                     },
                   ],
                 },
@@ -538,6 +579,51 @@ export const GetUsersDocument = {
     },
   ],
 } as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
+export const DeleteUserDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "deleteUser" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteUser" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "userId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DeleteUserMutation, DeleteUserMutationVariables>;
 export const GetPaymentsByUserDocument = {
   kind: "Document",
   definitions: [

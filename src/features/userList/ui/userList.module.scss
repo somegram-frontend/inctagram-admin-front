@@ -1,3 +1,35 @@
+.sortBtn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding-left: 4px;
+  width: 100%;
+  color: var(--color-light-100) !important;
+
+  .arrow {
+    color: var(--color-dark-100);
+    margin: 0 0 0 10px;
+    transition: transform 0.2s ease;
+  }
+
+  &.asc .arrow {
+    transform: rotateX(180deg);
+    color: var(--color-light-100);
+  }
+
+  &.desc .arrow {
+    transform: rotateX(0deg);
+    color: var(--color-light-100);
+  }
+}
+
+.notSortable {
+  pointer-events: none;
+  cursor: default;
+}
+
 .pagination {
   margin: 36px 0 0;
 }
