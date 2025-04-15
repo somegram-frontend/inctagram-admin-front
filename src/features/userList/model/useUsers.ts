@@ -2,14 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/features/userList/api";
 import { SortDirection } from "@/shared/configs/gql/graphql";
 
-export type SortField = "username" | "createdAt" | "";
+export type SortBy = "username" | "createdAt" | "";
 
 type Params = {
   pageNumber: number;
   pageSize: number;
-  sortBy: SortField;
+  sortBy: SortBy;
   sortDirection: SortDirection;
 };
+
 export const useUsers = (props: Params) => {
   const { pageNumber, pageSize, sortBy, sortDirection } = props;
 
