@@ -18,22 +18,22 @@ const getUsersQuery = graphql(`
       pageSize
       items {
         id
-            createdAt
-            email
-            username
-            about
-            dateOfBirth
-            firstName
-            lastName
-            city
-            country
-            accountType
-            profileLink
-            isDeleted
-            banInfo {
-                banReason
-                banDate
-            }
+        createdAt
+        email
+        username
+        about
+        dateOfBirth
+        firstName
+        lastName
+        city
+        country
+        accountType
+        profileLink
+        isDeleted
+        banInfo {
+          banReason
+          banDate
+        }
       }
     }
   }

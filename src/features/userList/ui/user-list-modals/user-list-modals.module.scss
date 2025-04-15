@@ -15,7 +15,7 @@
   width: 378px;
   border-radius: 8px;
 
-  background-color: var(--color-dark-700);
+  background-color: var(--color-dark-300);
 }
 
 .loader {
@@ -42,10 +42,6 @@
   border-radius: 50%;
 
   background: none;
-
-  &:hover {
-    background-color: var(--color-success-700);
-  }
 }
 
 .body {
@@ -58,7 +54,6 @@
 .description {
   font-size: 16px;
   font-weight: var(--font-weight-bold);
-
 }
 
 .actionsBtnGroup {
@@ -76,7 +71,7 @@
     background-color: var(--color-success-700);
 
     &:hover {
-        background-color: var(--color-success-500);
+      background-color: var(--color-success-500);
     }
   }
 

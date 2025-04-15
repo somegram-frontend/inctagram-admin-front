@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import * as Dialog from '@radix-ui/react-dialog'
-import { Button, Close } from '@honor-ui/inctagram-ui-kit'
-import { useUserListModals } from '../../model/useUserListModals'
+import * as Dialog from "@radix-ui/react-dialog";
+import { Button, Close } from "@honor-ui/inctagram-ui-kit";
+import { useUserListModals } from "../../model/useUserListModals";
 
-import s from './user-list-modals.module.scss'
+import s from "./user-list-modals.module.scss";
 
 type Props = {
-  open: boolean
-}
+  open: boolean;
+};
 export const DeleteUserModal = ({ open }: Props) => {
-  const { cancel, confirmDeleteUser: confirm, user } = useUserListModals()
+  const { cancel, confirmDeleteUser: confirm, user } = useUserListModals();
 
   return (
     <Dialog.Root open={open} onOpenChange={cancel}>
@@ -28,10 +28,8 @@ export const DeleteUserModal = ({ open }: Props) => {
               Are you sure to delete user <b>{user?.userName} ?</b>
             </Dialog.Description>
             <div className={s.actionsBtnGroup}>
-              <Button onClick={cancel} className={s.cancel}>
-                Cancel
-              </Button>
-              <Button onClick={() => confirm()} className={s.confirm}>
+              <Button onClick={cancel}>Cancel</Button>
+              <Button onClick={() => confirm()} variant={"outlined"}>
                 Delete
               </Button>
             </div>
@@ -39,5 +37,5 @@ export const DeleteUserModal = ({ open }: Props) => {
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  )
-}
+  );
+};

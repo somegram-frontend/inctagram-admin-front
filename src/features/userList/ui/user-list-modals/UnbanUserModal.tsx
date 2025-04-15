@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import * as Dialog from '@radix-ui/react-dialog'
-import { useUserListModals } from '@/features/userList/model/useUserListModals'
+import * as Dialog from "@radix-ui/react-dialog";
+import { useUserListModals } from "@/features/userList/model/useUserListModals";
 
-import s from './user-list-modals.module.scss'
-import { Button, Close } from '@honor-ui/inctagram-ui-kit'
+import s from "./user-list-modals.module.scss";
+import { Button, Close } from "@honor-ui/inctagram-ui-kit";
 
 type Props = {
-  open: boolean
-}
+  open: boolean;
+};
 
 export const UnbanUserModal = (props: Props) => {
-  const { open } = props
+  const { open } = props;
 
-  const { cancel, user, confirmUnbanUser } = useUserListModals()
+  const { cancel, user, confirmUnbanUser } = useUserListModals();
 
   return (
     <Dialog.Root open={open} onOpenChange={cancel}>
@@ -32,10 +32,8 @@ export const UnbanUserModal = (props: Props) => {
             </Dialog.Description>
 
             <div className={s.actionsBtnGroup}>
-              <Button onClick={cancel} className={s.cancel}>
-                No
-              </Button>
-              <Button onClick={() => confirmUnbanUser()} className={s.confirm}>
+              <Button onClick={cancel}>No</Button>
+              <Button onClick={() => confirmUnbanUser()} variant={"outlined"}>
                 Yes
               </Button>
             </div>
@@ -43,5 +41,5 @@ export const UnbanUserModal = (props: Props) => {
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  )
-}
+  );
+};

@@ -1,23 +1,23 @@
-'use client'
+"use client";
 
-import * as Dialog from '@radix-ui/react-dialog'
-import { useUserListModals } from '@/features/userList/model/useUserListModals'
+import * as Dialog from "@radix-ui/react-dialog";
+import { useUserListModals } from "@/features/userList/model/useUserListModals";
 
-import s from './user-list-modals.module.scss'
-import { Button, Close, Select } from '@honor-ui/inctagram-ui-kit'
-import { useState } from 'react'
+import s from "./user-list-modals.module.scss";
+import { Button, Close, Select } from "@honor-ui/inctagram-ui-kit";
+import { useState } from "react";
 
 type Props = {
-  open: boolean
-}
+  open: boolean;
+};
 
 export const BanUserModal = (props: Props) => {
-  const { open } = props
-  const [banReason, setBanReason] = useState('')
+  const { open } = props;
+  const [banReason, setBanReason] = useState("");
 
-  console.log(banReason)
+  console.log(banReason);
 
-  const { cancel, user, confirmBanUser, optionsReasons } = useUserListModals()
+  const { cancel, user, confirmBanUser, optionsReasons } = useUserListModals();
 
   return (
     <Dialog.Root open={open} onOpenChange={cancel}>
@@ -37,16 +37,14 @@ export const BanUserModal = (props: Props) => {
             <Select
               value={banReason}
               onValueChange={setBanReason}
-              placeholder={'Reason for ban'}
+              placeholder={"Reason for ban"}
               options={optionsReasons}
             />
             <div className={s.actionsBtnGroup}>
-              <Button onClick={cancel} className={s.cancel}>
-                No
-              </Button>
+              <Button onClick={cancel}>No</Button>
               <Button
                 onClick={() => confirmBanUser({ banReason })}
-                className={s.confirm}
+                variant={"outlined"}
               >
                 Yes
               </Button>
@@ -55,5 +53,5 @@ export const BanUserModal = (props: Props) => {
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  )
-}
+  );
+};
