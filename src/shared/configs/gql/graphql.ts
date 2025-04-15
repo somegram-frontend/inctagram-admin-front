@@ -258,11 +258,24 @@ export type LoginSaQueryVariables = Exact<{ [key: string]: never }>;
 
 export type LoginSaQuery = { __typename?: "Query"; loginSa: string };
 
+export type BanUserMutationVariables = Exact<{
+  banUserInput: BanUserInput;
+}>;
+
+export type BanUserMutation = { __typename?: "Mutation"; banUser: boolean };
+
+export type DeleteUserMutationVariables = Exact<{
+  userId: Scalars["String"]["input"];
+}>;
+
+export type DeleteUserMutation = {
+  __typename?: "Mutation";
+  deleteUser: boolean;
+};
+
 export type GetUsersQueryVariables = Exact<{
   pageNumber: Scalars["Int"]["input"];
   pageSize: Scalars["Int"]["input"];
-  sortDirection: SortDirection;
-  sortBy: Scalars["String"]["input"];
 }>;
 
 export type GetUsersQuery = {
@@ -276,21 +289,32 @@ export type GetUsersQuery = {
     items: Array<{
       __typename?: "UserModel";
       id: string;
-      username: string;
-      profileLink?: string | null;
       createdAt: any;
+      email: string;
+      username: string;
+      about?: string | null;
+      dateOfBirth?: any | null;
+      firstName?: string | null;
+      lastName?: string | null;
+      city?: string | null;
+      country?: string | null;
+      accountType: AccountType;
+      profileLink?: string | null;
+      isDeleted: boolean;
+      banInfo?: {
+        __typename?: "UserBanInfo";
+        banReason: string;
+        banDate: any;
+      } | null;
     }>;
   };
 };
 
-export type DeleteUserMutationVariables = Exact<{
+export type UnbanUserMutationVariables = Exact<{
   userId: Scalars["String"]["input"];
 }>;
 
-export type DeleteUserMutation = {
-  __typename?: "Mutation";
-  deleteUser: boolean;
-};
+export type UnbanUserMutation = { __typename?: "Mutation"; unbanUser: boolean };
 
 export type GetPaymentsByUserQueryVariables = Exact<{
   pageNumber: Scalars["Int"]["input"];
@@ -434,61 +458,25 @@ export const LoginSaDocument = {
     },
   ],
 } as unknown as DocumentNode<LoginSaQuery, LoginSaQueryVariables>;
-export const GetUsersDocument = {
+export const BanUserDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "getUsers" },
+      operation: "mutation",
+      name: { kind: "Name", value: "banUser" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "pageNumber" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "pageSize" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "sortDirection" },
+            name: { kind: "Name", value: "banUserInput" },
           },
           type: {
             kind: "NonNullType",
             type: {
               kind: "NamedType",
-              name: { kind: "Name", value: "SortDirection" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "sortBy" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
+              name: { kind: "Name", value: "BanUserInput" },
             },
           },
         },
@@ -498,87 +486,23 @@ export const GetUsersDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "getUsers" },
+            name: { kind: "Name", value: "banUser" },
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "queryString" },
+                name: { kind: "Name", value: "banUserInput" },
                 value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "pageNumber" },
-                      value: {
-                        kind: "Variable",
-                        name: { kind: "Name", value: "pageNumber" },
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "pageSize" },
-                      value: {
-                        kind: "Variable",
-                        name: { kind: "Name", value: "pageSize" },
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "sortBy" },
-                      value: {
-                        kind: "Variable",
-                        name: { kind: "Name", value: "sortBy" },
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "sortDirection" },
-                      value: {
-                        kind: "Variable",
-                        name: { kind: "Name", value: "sortDirection" },
-                      },
-                    },
-                  ],
+                  kind: "Variable",
+                  name: { kind: "Name", value: "banUserInput" },
                 },
               },
             ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "totalCount" } },
-                { kind: "Field", name: { kind: "Name", value: "pageNumber" } },
-                { kind: "Field", name: { kind: "Name", value: "pagesCount" } },
-                { kind: "Field", name: { kind: "Name", value: "pageSize" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "items" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "username" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "profileLink" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "createdAt" },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
+} as unknown as DocumentNode<BanUserMutation, BanUserMutationVariables>;
 export const DeleteUserDocument = {
   kind: "Document",
   definitions: [
@@ -624,6 +548,210 @@ export const DeleteUserDocument = {
     },
   ],
 } as unknown as DocumentNode<DeleteUserMutation, DeleteUserMutationVariables>;
+export const GetUsersDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "getUsers" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageNumber" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageSize" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getUsers" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "queryString" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageNumber" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageNumber" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageSize" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageSize" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "sortBy" },
+                      value: {
+                        kind: "StringValue",
+                        value: "createdAt",
+                        block: false,
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "sortDirection" },
+                      value: { kind: "EnumValue", value: "DESC" },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "totalCount" } },
+                { kind: "Field", name: { kind: "Name", value: "pageNumber" } },
+                { kind: "Field", name: { kind: "Name", value: "pagesCount" } },
+                { kind: "Field", name: { kind: "Name", value: "pageSize" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "items" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "about" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "dateOfBirth" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "firstName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "lastName" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "city" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "country" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "accountType" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "profileLink" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isDeleted" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "banInfo" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "banReason" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "banDate" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
+export const UnbanUserDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "unbanUser" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "userId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "unbanUser" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "userId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "userId" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UnbanUserMutation, UnbanUserMutationVariables>;
 export const GetPaymentsByUserDocument = {
   kind: "Document",
   definitions: [
