@@ -9,11 +9,11 @@ import {
   TableTh,
   TableTr,
 } from "@/shared/components/table";
-import { useUsers } from "@/features/userList/model";
+import { SortBy, useUsers } from "@/features/userList/model";
 import Pagination from "@/shared/components/pagination/Pagination";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import {
   DropdownMenu,
@@ -21,37 +21,57 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/dropDown";
-import s from "./userList.module.scss";
 import { parseGraphQLError } from "@/shared/utills";
 import {
   Block,
+  Button,
   MoreHorizontalOutline,
   PersonRemoveOutline,
 } from "@honor-ui/inctagram-ui-kit";
 import { Path } from "@/shared/const/path";
 import { Loader } from "@/shared/components/loader";
 import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
+import { SortDirection } from "@/shared/configs/gql/graphql";
+import s from "./userList.module.scss";
+import clsx from "clsx";
+import Polygon from "@/shared/components/icons/Polygon";
 import { useUserListModals } from "@/features/userList/model/useUserListModals";
 import { UserListModals } from "@/features/userList/ui/user-list-modals";
 
-const HEADER_USERS_LIST = [
+const HEADER_USERS = [
   "User ID",
   "Username",
   "Profile link",
   "Date added",
   "",
-];
+] as const;
+
+const HEAD_SORT: Record<string, SortBy> = {
+  Username: "username",
+  "Date added": "createdAt",
+};
+
 export const UserList = () => {
   const router = useRouter();
-  const { pageNumber, pageSize, setNewParams } = usePaginationParams({});
-  const pathname = usePathname();
+  const [sortBy, setSortBy] = useState<SortBy>("username");
 
+  const [sortDirection, setSortDirection] = useState<SortDirection>(
+    SortDirection.Desc,
+  );
+
+  const { pageNumber, pageSize, setNewParams } = usePaginationParams({});
+
+  const pathname = usePathname();
   const { openModal } = useUserListModals();
 
-  const { data, error, isLoading } = useUsers({
+  const { data, error, isLoading, refetch, isFetching } = useUsers({
     pageSize,
     pageNumber,
+    sortBy: sortBy,
+    sortDirection: sortDirection,
   });
+
+  const loading = isLoading || isFetching;
 
   useEffect(() => {
     if (error) {
@@ -67,14 +87,50 @@ export const UserList = () => {
     router.push(pathname + "/" + userId + Path.User.UploadedPhotos);
   };
 
+  const toggleSort = (field: SortBy) => {
+    if (sortBy !== field) {
+      setSortBy(field);
+      setSortDirection(SortDirection.Asc);
+    } else {
+      setSortDirection(
+        sortDirection === SortDirection.Asc
+          ? SortDirection.Desc
+          : SortDirection.Asc,
+      );
+    }
+    refetch();
+  };
+
   return (
     <Page>
       <TableRoot>
         <TableHead>
           <TableTr>
-            {HEADER_USERS_LIST.map((head) => (
-              <TableTh key={head}>{head}</TableTh>
-            ))}
+            {HEADER_USERS.map((head) => {
+              const sortField = HEAD_SORT[head];
+              const notSort = head === "Username" || head === "Date added";
+              return (
+                <TableTh key={head}>
+                  <Button
+                    className={clsx(s.sortBtn, {
+                      [s.asc]:
+                        sortBy === sortField &&
+                        sortDirection === SortDirection.Asc,
+                      [s.desc]:
+                        sortBy === sortField &&
+                        sortDirection === SortDirection.Desc,
+                      [s.notSortable]: !notSort,
+                    })}
+                    variant="borderless"
+                    disabled={!notSort || loading}
+                    onClick={() => toggleSort(sortField)}
+                  >
+                    {head}
+                    {notSort && <Polygon className={s.arrow} />}
+                  </Button>
+                </TableTh>
+              );
+            })}
           </TableTr>
         </TableHead>
         <TableBody>

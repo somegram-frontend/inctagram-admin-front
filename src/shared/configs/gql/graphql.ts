@@ -276,6 +276,8 @@ export type DeleteUserMutation = {
 export type GetUsersQueryVariables = Exact<{
   pageNumber: Scalars["Int"]["input"];
   pageSize: Scalars["Int"]["input"];
+  sortBy: Scalars["String"]["input"];
+  sortDirection: SortDirection;
 }>;
 
 export type GetUsersQuery = {
@@ -578,6 +580,34 @@ export const GetUsersDocument = {
             type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortBy" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortDirection" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "SortDirection" },
+            },
+          },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -612,15 +642,17 @@ export const GetUsersDocument = {
                       kind: "ObjectField",
                       name: { kind: "Name", value: "sortBy" },
                       value: {
-                        kind: "StringValue",
-                        value: "createdAt",
-                        block: false,
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortBy" },
                       },
                     },
                     {
                       kind: "ObjectField",
                       name: { kind: "Name", value: "sortDirection" },
-                      value: { kind: "EnumValue", value: "DESC" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortDirection" },
+                      },
                     },
                   ],
                 },
