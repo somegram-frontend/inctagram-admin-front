@@ -32,9 +32,11 @@ import { Path } from "@/shared/const/path";
 import { Loader } from "@/shared/components/loader";
 import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
 import { SortDirection } from "@/shared/configs/gql/graphql";
+import s from "./userList.module.scss";
 import clsx from "clsx";
 import Polygon from "@/shared/components/icons/Polygon";
-import s from "./userList.module.scss";
+import { useUserListModals } from "@/features/userList/model/useUserListModals";
+import { UserListModals } from "@/features/userList/ui/user-list-modals";
 
 const HEADER_USERS = [
   "User ID",
@@ -60,6 +62,7 @@ export const UserList = () => {
   const { pageNumber, pageSize, setNewParams } = usePaginationParams({});
 
   const pathname = usePathname();
+  const { openModal } = useUserListModals();
 
   const { data, error, isLoading, refetch, isFetching } = useUsers({
     pageSize,
@@ -133,7 +136,12 @@ export const UserList = () => {
         <TableBody>
           {data?.items.map((row) => (
             <TableTr key={row.id}>
-              <TableTd>{row.id}</TableTd>
+              <TableTd className={s.idSection}>
+                <span className={s.blockContainer}>
+                  {row.banInfo && <Block />}
+                </span>
+                {row.id}
+              </TableTd>
               <TableTd>{row.username}</TableTd>
               <TableTd>{row.profileLink}</TableTd>
               <TableTd>{format(new Date(row.createdAt), "dd.MM.yyyy")}</TableTd>
@@ -143,11 +151,28 @@ export const UserList = () => {
                     ...
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align={"end"}>
-                    <DropdownMenuItem className={s.item}>
+                    <DropdownMenuItem
+                      className={s.item}
+                      onClick={() =>
+                        openModal(
+                          { userName: row.username, userId: row.id },
+                          "delete",
+                        )
+                      }
+                    >
                       <PersonRemoveOutline /> Delete User
                     </DropdownMenuItem>
-                    <DropdownMenuItem className={s.item}>
-                      <Block /> Ban in the system
+                    <DropdownMenuItem
+                      className={s.item}
+                      onClick={() =>
+                        openModal(
+                          { userName: row.username, userId: row.id },
+                          row.banInfo !== null ? "unban" : "ban",
+                        )
+                      }
+                    >
+                      <Block /> {row.banInfo !== null ? "Unban" : "Ban"} in the
+                      system
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className={s.item}
@@ -169,6 +194,7 @@ export const UserList = () => {
         setNewParams={setNewParams}
         selectBlock={false}
       />
+      <UserListModals />
     </Page>
   );
 };
