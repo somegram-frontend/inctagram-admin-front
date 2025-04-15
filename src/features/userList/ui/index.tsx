@@ -9,7 +9,7 @@ import {
   TableTh,
   TableTr,
 } from "@/shared/components/table";
-import { SortField, useUsers } from "@/features/userList/model";
+import { SortBy, useUsers } from "@/features/userList/model";
 import Pagination from "@/shared/components/pagination/Pagination";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -31,31 +31,34 @@ import {
 import { Path } from "@/shared/const/path";
 import { Loader } from "@/shared/components/loader";
 import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
-import { deleteUser } from "../api/fetchUsers";
 import { SortDirection } from "@/shared/configs/gql/graphql";
-import s from "./userList.module.scss";
 import clsx from "clsx";
 import Polygon from "@/shared/components/icons/Polygon";
+import s from "./userList.module.scss";
 
-const HEADER_USERS_LIST = [
+const HEADER_USERS = [
   "User ID",
   "Username",
   "Profile link",
   "Date added",
   "",
 ] as const;
-const HEAD_SORT_MAP: Record<string, SortField> = {
+
+const HEAD_SORT: Record<string, SortBy> = {
   Username: "username",
   "Date added": "createdAt",
 };
+
 export const UserList = () => {
   const router = useRouter();
-  const [sortBy, setSortBy] = useState<SortField>("username");
+  const [sortBy, setSortBy] = useState<SortBy>("username");
+
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     SortDirection.Desc,
   );
 
   const { pageNumber, pageSize, setNewParams } = usePaginationParams({});
+
   const pathname = usePathname();
 
   const { data, error, isLoading, refetch, isFetching } = useUsers({
@@ -64,6 +67,7 @@ export const UserList = () => {
     sortBy: sortBy,
     sortDirection: sortDirection,
   });
+
   const loading = isLoading || isFetching;
 
   useEffect(() => {
@@ -80,7 +84,7 @@ export const UserList = () => {
     router.push(pathname + "/" + userId + Path.User.UploadedPhotos);
   };
 
-  const toggleSort = (field: SortField) => {
+  const toggleSort = (field: SortBy) => {
     if (sortBy !== field) {
       setSortBy(field);
       setSortDirection(SortDirection.Asc);
@@ -93,13 +97,14 @@ export const UserList = () => {
     }
     refetch();
   };
+
   return (
     <Page>
       <TableRoot>
         <TableHead>
           <TableTr>
-            {HEADER_USERS_LIST.map((head) => {
-              const sortField = HEAD_SORT_MAP[head];
+            {HEADER_USERS.map((head) => {
+              const sortField = HEAD_SORT[head];
               const notSort = head === "Username" || head === "Date added";
               return (
                 <TableTh key={head}>
@@ -138,14 +143,7 @@ export const UserList = () => {
                     ...
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align={"end"}>
-                    <DropdownMenuItem
-                      className={s.item}
-                      // тест дропа
-                      onClick={async () => {
-                        await deleteUser(row.id);
-                        refetch();
-                      }}
-                    >
+                    <DropdownMenuItem className={s.item}>
                       <PersonRemoveOutline /> Delete User
                     </DropdownMenuItem>
                     <DropdownMenuItem className={s.item}>
