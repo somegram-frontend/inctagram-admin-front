@@ -116,7 +116,7 @@ export const UserList = () => {
 
   return (
     <Page>
-      <Input search value={search} onChange={handleInputChange} />
+      <Input search value={search} onChange={handleInputChange} className={s.searchInput}/>
       <TableRoot>
         <TableHead>
           <TableTr>
