@@ -9,13 +9,15 @@ type Params = {
   pageSize: number;
   sortBy: SortBy;
   sortDirection: SortDirection;
+  search: string;
 };
 
 export const useUsers = (props: Params) => {
-  const { pageNumber, pageSize, sortBy, sortDirection } = props;
+  const { pageNumber, pageSize, sortBy, sortDirection, search } = props;
 
   return useQuery({
     queryKey: ["users", pageNumber, pageSize],
-    queryFn: () => fetchUsers({ pageNumber, pageSize, sortBy, sortDirection }),
+    queryFn: () =>
+      fetchUsers({ pageNumber, pageSize, sortBy, sortDirection, search }),
   });
 };

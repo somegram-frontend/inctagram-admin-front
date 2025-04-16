@@ -8,6 +8,7 @@ const getUsersQuery = graphql(`
     $pageSize: Int!
     $sortBy: String!
     $sortDirection: SortDirection!
+    $search: String
   ) {
     getUsers(
       queryString: {
@@ -15,6 +16,7 @@ const getUsersQuery = graphql(`
         pageSize: $pageSize
         sortBy: $sortBy
         sortDirection: $sortDirection
+        search: $search
       }
     ) {
       totalCount

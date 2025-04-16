@@ -278,6 +278,7 @@ export type GetUsersQueryVariables = Exact<{
   pageSize: Scalars["Int"]["input"];
   sortBy: Scalars["String"]["input"];
   sortDirection: SortDirection;
+  search?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type GetUsersQuery = {
@@ -608,6 +609,14 @@ export const GetUsersDocument = {
             },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "search" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -652,6 +661,14 @@ export const GetUsersDocument = {
                       value: {
                         kind: "Variable",
                         name: { kind: "Name", value: "sortDirection" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "search" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "search" },
                       },
                     },
                   ],

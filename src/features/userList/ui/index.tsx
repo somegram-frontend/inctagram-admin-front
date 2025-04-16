@@ -25,6 +25,7 @@ import { parseGraphQLError } from "@/shared/utills";
 import {
   Block,
   Button,
+  Input,
   MoreHorizontalOutline,
   PersonRemoveOutline,
 } from "@honor-ui/inctagram-ui-kit";
@@ -37,6 +38,7 @@ import clsx from "clsx";
 import Polygon from "@/shared/components/icons/Polygon";
 import { useUserListModals } from "@/features/userList/model/useUserListModals";
 import { UserListModals } from "@/features/userList/ui/user-list-modals";
+import useDebounce from "./hook/useDebounce";
 
 const HEADER_USERS = [
   "User ID",
@@ -54,7 +56,8 @@ const HEAD_SORT: Record<string, SortBy> = {
 export const UserList = () => {
   const router = useRouter();
   const [sortBy, setSortBy] = useState<SortBy>("username");
-
+  const [search, setSearch] = useState("");
+  const debouncedValue = useDebounce(search, 1500);
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     SortDirection.Desc,
   );
@@ -69,9 +72,14 @@ export const UserList = () => {
     pageNumber,
     sortBy: sortBy,
     sortDirection: sortDirection,
+    search: debouncedValue,
   });
 
   const loading = isLoading || isFetching;
+
+  useEffect(() => {
+    refetch();
+  }, [debouncedValue, refetch]);
 
   useEffect(() => {
     if (error) {
@@ -101,8 +109,14 @@ export const UserList = () => {
     refetch();
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearch(value);
+  };
+
   return (
     <Page>
+      <Input search value={search} onChange={handleInputChange} />
       <TableRoot>
         <TableHead>
           <TableTr>
