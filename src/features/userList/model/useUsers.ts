@@ -1,7 +1,8 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/features/userList/api";
-import { SortDirection } from "@/shared/configs/gql/graphql";
-
+import { SortDirection, UserBlockStatus } from "@/shared/configs/gql/graphql";
 export type SortBy = "username" | "createdAt" | "";
 
 type Params = {
@@ -10,14 +11,23 @@ type Params = {
   sortBy: SortBy;
   sortDirection: SortDirection;
   search: string;
+  statusFilter: UserBlockStatus;
 };
 
 export const useUsers = (props: Params) => {
-  const { pageNumber, pageSize, sortBy, sortDirection, search } = props;
+  const { pageNumber, pageSize, sortBy, sortDirection, search, statusFilter } =
+    props;
 
   return useQuery({
-    queryKey: ["users", pageNumber, pageSize],
+    queryKey: ["users", pageNumber, pageSize, statusFilter, search],
     queryFn: () =>
-      fetchUsers({ pageNumber, pageSize, sortBy, sortDirection, search }),
+      fetchUsers({
+        pageNumber,
+        pageSize,
+        sortBy,
+        sortDirection,
+        search,
+        statusFilter,
+      }),
   });
 };
