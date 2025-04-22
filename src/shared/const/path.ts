@@ -1,17 +1,17 @@
 export const Path = {
   Auth: {
-    SignIn: "/signIn",
+    SignIn: "/sign-in",
   },
   Admin: {
-    PaymentsList: "/paymentsList",
-    PostsList: "/postsList",
+    PaymentsList: "/payments-list",
+    PostsList: "/posts-list",
     Statistics: "/statistics",
-    UserList: "/userList",
+    UserList: "/users-list",
   },
   User: {
     Following: "/following",
     Followers: "/followers",
     Payments: "/payments",
-    UploadedPhotos: "/uploadedPhotos",
+    UploadedPhotos: "/uploaded-photos",
   },
 };
