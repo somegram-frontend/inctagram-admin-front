@@ -25,11 +25,11 @@ import { usePaymentsPage, PaymentsSortBy } from "@/features/payments-page/lib";
 import useDebounce from "@/features/userList/ui/hook/useDebounce";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { getInitials, parseGraphQLError } from "@/shared/utills";
+import { getInitials, parseGraphQLError } from "@/shared/utils";
 import { Loader } from "@/shared/components/loader";
 import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
 import { Avatar } from "radix-ui";
-import { calculateRemainingTime } from "@/shared/utills";
+import { calculateRemainingTime } from "@/shared/utils";
 
 const HEADER_PAYMENTS = [
   "Username",

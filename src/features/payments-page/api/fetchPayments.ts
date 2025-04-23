@@ -2,7 +2,7 @@ import { graphql } from "@/shared/configs/gql";
 import { client } from "@/shared/api/instanse";
 import { GetAllPaymentsQueryVariables } from "@/shared/configs/gql/graphql";
 
-const getAllPaymentQuery = graphql(`
+const getAllPaymentsQuery = graphql(`
   query getAllPayments(
     $pageNumber: Int!
     $pageSize: Int!
@@ -65,6 +65,6 @@ const getAllPaymentQuery = graphql(`
 export const fetchPayments = async (
   variables: GetAllPaymentsQueryVariables,
 ) => {
-  const data = await client.request(getAllPaymentQuery, variables);
+  const data = await client.request(getAllPaymentsQuery, variables);
   return data.getAllPayments;
 };
