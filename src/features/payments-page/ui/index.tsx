@@ -59,7 +59,7 @@ export const PaymentsListPage = () => {
     initialPageSize: 6,
   });
 
-  const { data, error, isLoading, refetch, isFetching } = usePaymentsPage({
+  const { data, error, isLoading, isFetching } = usePaymentsPage({
     pageSize,
     pageNumber,
     sortBy,
@@ -81,12 +81,7 @@ export const PaymentsListPage = () => {
           : SortDirection.Asc,
       );
     }
-    refetch();
   };
-
-  useEffect(() => {
-    refetch();
-  }, [debouncedValue, refetch]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
