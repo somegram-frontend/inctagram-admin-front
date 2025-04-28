@@ -76,10 +76,9 @@
   }
 
   .confirm {
-    background-color: var(--color-danger-300);
-
     &:hover {
-      background-color: var(--color-danger-100);
+      border: 2px solid var(--color-accent-100);
     }
   }
 }
+
