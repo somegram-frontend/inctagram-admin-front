@@ -25,12 +25,12 @@ export const DeleteUserModal = ({ open }: Props) => {
           </Dialog.Title>
           <div className={s.body}>
             <Dialog.Description className={s.description}>
-              Are you sure to delete user <b>{user?.userName} ?</b>
+              Are you sure to delete user <b>{user?.userName}</b>?
             </Dialog.Description>
             <div className={s.actionsBtnGroup}>
-              <Button onClick={cancel}>Cancel</Button>
+              <Button onClick={cancel}>No</Button>
               <Button onClick={() => confirm()} variant={"outlined"}>
-                Delete
+                Yes
               </Button>
             </div>
           </div>
