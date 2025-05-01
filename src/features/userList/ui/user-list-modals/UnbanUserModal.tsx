@@ -33,7 +33,11 @@ export const UnbanUserModal = (props: Props) => {
 
             <div className={s.actionsBtnGroup}>
               <Button onClick={cancel}>No</Button>
-              <Button onClick={() => confirmUnbanUser()} variant={"outlined"}>
+              <Button
+                className={s.confirm}
+                onClick={() => confirmUnbanUser()}
+                variant={"outlined"}
+              >
                 Yes
               </Button>
             </div>

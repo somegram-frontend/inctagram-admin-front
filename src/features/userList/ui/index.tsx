@@ -26,7 +26,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/dropDown";
-import { parseGraphQLError } from "@/shared/utills";
+import { parseGraphQLError } from "@/shared/utils";
 import {
   Block,
   Button,

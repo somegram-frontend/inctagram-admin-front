@@ -245,6 +245,63 @@ export type UsersQueryStringInput = {
   statusFilter?: UserBlockStatus;
 };
 
+export type GetAllPaymentsQueryVariables = Exact<{
+  pageNumber: Scalars["Int"]["input"];
+  pageSize: Scalars["Int"]["input"];
+  sortBy: Scalars["String"]["input"];
+  sortDirection: SortDirection;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type GetAllPaymentsQuery = {
+  __typename?: "Query";
+  getAllPayments: {
+    __typename?: "PaginatedPaymentsModel";
+    totalCount: number;
+    pageNumber: number;
+    pagesCount: number;
+    pageSize: number;
+    items: Array<{
+      __typename?: "PaymentsModel";
+      subscriptionId: string;
+      subscriptionType: string;
+      price: number;
+      paymentSystem: string;
+      status: string;
+      dateOfPayment: string;
+      endDateOfSubscription: string;
+      userId: string;
+      username: string;
+      getUser?: {
+        __typename?: "UserModel";
+        id: string;
+        createdAt: any;
+        email: string;
+        username: string;
+        about?: string | null;
+        dateOfBirth?: any | null;
+        firstName?: string | null;
+        lastName?: string | null;
+        city?: string | null;
+        country?: string | null;
+        accountType: AccountType;
+        profileLink?: string | null;
+        isDeleted: boolean;
+        getAvatar?: {
+          __typename?: "FileModel";
+          ownerId?: string | null;
+          createdAt?: string | null;
+          originalname?: string | null;
+          size?: number | null;
+          url?: string | null;
+          key?: string | null;
+          postId?: string | null;
+        } | null;
+      } | null;
+    }>;
+  };
+};
+
 export type AuthorizeSuperAdminMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
@@ -398,6 +455,288 @@ export type GetUserQuery = {
   } | null;
 };
 
+export const GetAllPaymentsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "getAllPayments" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageNumber" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageSize" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortBy" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortDirection" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "SortDirection" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "search" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getAllPayments" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "queryString" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageNumber" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageNumber" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageSize" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageSize" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "sortBy" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortBy" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "sortDirection" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortDirection" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "search" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "search" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "totalCount" } },
+                { kind: "Field", name: { kind: "Name", value: "pageNumber" } },
+                { kind: "Field", name: { kind: "Name", value: "pagesCount" } },
+                { kind: "Field", name: { kind: "Name", value: "pageSize" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "items" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "subscriptionId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "subscriptionType" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "price" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "paymentSystem" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "status" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "dateOfPayment" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "endDateOfSubscription" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "userId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "username" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "getUser" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "createdAt" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "email" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "username" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "about" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "dateOfBirth" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "firstName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lastName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "city" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "country" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "accountType" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "profileLink" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isDeleted" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "getAvatar" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "ownerId" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "createdAt" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "originalname",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "size" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "url" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "key" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "postId" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetAllPaymentsQuery, GetAllPaymentsQueryVariables>;
 export const AuthorizeSuperAdminDocument = {
   kind: "Document",
   definitions: [
