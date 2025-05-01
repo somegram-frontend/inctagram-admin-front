@@ -9,6 +9,7 @@ const getUsersQuery = graphql(`
     $sortBy: String!
     $sortDirection: SortDirection!
     $search: String
+    $statusFilter: UserBlockStatus!
   ) {
     getUsers(
       queryString: {
@@ -17,6 +18,7 @@ const getUsersQuery = graphql(`
         sortBy: $sortBy
         sortDirection: $sortDirection
         search: $search
+        statusFilter: $statusFilter
       }
     ) {
       totalCount
