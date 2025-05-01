@@ -29,7 +29,7 @@ export const DeleteUserModal = ({ open }: Props) => {
             </Dialog.Description>
             <div className={s.actionsBtnGroup}>
               <Button onClick={cancel}>No</Button>
-              <Button onClick={() => confirm()} variant={"outlined"}>
+              <Button className={s.confirm} onClick={() => confirm()} variant={"outlined"}>
                 Yes
               </Button>
             </div>
