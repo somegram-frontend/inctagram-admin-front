@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserBlockStatus } from "@/shared/configs/gql/graphql";
 
 export type ModalType = "delete" | "ban" | "unban" | null;
 
@@ -8,11 +9,13 @@ interface State {
     userName: string;
   } | null;
   modal: ModalType;
+  statusFilter: UserBlockStatus;
 }
 
 const initialState: State = {
   user: null,
   modal: null,
+  statusFilter: UserBlockStatus.All,
 };
 
 const userListSlice = createSlice({
@@ -35,6 +38,9 @@ const userListSlice = createSlice({
     closeModal: (state) => {
       state.user = null;
       state.modal = null;
+    },
+    setStatusFilter: (state, action: PayloadAction<UserBlockStatus>) => {
+      state.statusFilter = action.payload;
     },
   },
 });

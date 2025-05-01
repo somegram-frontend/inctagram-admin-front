@@ -9,7 +9,12 @@ import {
   TableTh,
   TableTr,
 } from "@/shared/components/table";
-import { SortBy, useUsers } from "@/features/userList/model";
+import {
+  getStatusFilter,
+  SortBy,
+  userListActions,
+  useUsers,
+} from "@/features/userList/model";
 import Pagination from "@/shared/components/pagination/Pagination";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -28,17 +33,19 @@ import {
   Input,
   MoreHorizontalOutline,
   PersonRemoveOutline,
+  Select,
 } from "@honor-ui/inctagram-ui-kit";
 import { Path } from "@/shared/const/path";
 import { Loader } from "@/shared/components/loader";
 import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
-import { SortDirection } from "@/shared/configs/gql/graphql";
+import { SortDirection, UserBlockStatus } from "@/shared/configs/gql/graphql";
 import s from "./userList.module.scss";
 import clsx from "clsx";
 import Polygon from "@/shared/components/icons/Polygon";
 import { useUserListModals } from "@/features/userList/model/useUserListModals";
 import { UserListModals } from "@/features/userList/ui/user-list-modals";
 import useDebounce from "./hook/useDebounce";
+import { useAppDispatch, useAppSelector } from "@/app/store";
 
 const HEADER_USERS = [
   "User ID",
@@ -53,8 +60,21 @@ const HEAD_SORT: Record<string, SortBy> = {
   "Date added": "createdAt",
 };
 
+type SelectOption = {
+  label: string;
+  value: UserBlockStatus;
+};
+
+const selectOptions: SelectOption[] = [
+  { label: "Blocked", value: UserBlockStatus.Blocked },
+  { label: "Not Blocked", value: UserBlockStatus.Unblocked },
+  { label: "Not selected", value: UserBlockStatus.All },
+];
+
 export const UserList = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const statusFilter = useAppSelector(getStatusFilter);
   const [sortBy, setSortBy] = useState<SortBy>("username");
   const [search, setSearch] = useState("");
   const debouncedValue = useDebounce(search, 1500);
@@ -73,13 +93,10 @@ export const UserList = () => {
     sortBy: sortBy,
     sortDirection: sortDirection,
     search: debouncedValue,
+    statusFilter,
   });
 
   const loading = isLoading || isFetching;
-
-  useEffect(() => {
-    refetch();
-  }, [debouncedValue, refetch]);
 
   useEffect(() => {
     if (error) {
@@ -114,14 +131,30 @@ export const UserList = () => {
     setSearch(value);
   };
 
+  const handleSelectChange = (value: string) => {
+    if (Object.values(UserBlockStatus).includes(value as UserBlockStatus)) {
+      dispatch(userListActions.setStatusFilter(value as UserBlockStatus));
+    }
+  };
+
   return (
     <Page>
-      <Input
-        search
-        value={search}
-        onChange={handleInputChange}
-        className={s.searchInput}
-      />
+      <div className={s.header}>
+        <Input
+          search
+          value={search}
+          onChange={handleInputChange}
+          className={s.searchInput}
+        />
+        <Select
+          className={s.sortSelect}
+          options={selectOptions}
+          onValueChange={handleSelectChange}
+          placeholder={
+            selectOptions.find((option) => option.value === statusFilter)?.label
+          }
+        />
+      </div>
       <TableRoot>
         <TableHead>
           <TableTr>

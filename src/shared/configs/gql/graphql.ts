@@ -336,6 +336,7 @@ export type GetUsersQueryVariables = Exact<{
   sortBy: Scalars["String"]["input"];
   sortDirection: SortDirection;
   search?: InputMaybe<Scalars["String"]["input"]>;
+  statusFilter: UserBlockStatus;
 }>;
 
 export type GetUsersQuery = {
@@ -956,6 +957,20 @@ export const GetUsersDocument = {
           },
           type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "statusFilter" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "UserBlockStatus" },
+            },
+          },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -1008,6 +1023,14 @@ export const GetUsersDocument = {
                       value: {
                         kind: "Variable",
                         name: { kind: "Name", value: "search" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "statusFilter" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "statusFilter" },
                       },
                     },
                   ],

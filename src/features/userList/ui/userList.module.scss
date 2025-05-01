@@ -29,8 +29,30 @@
   }
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 94px;
+
+  & > div {
+    width: 100%;
+    min-width: 644px;
+  }
+
+  & > button {
+    text-wrap: nowrap;
+  }
+}
+
 .searchInput {
   margin-bottom: 24px;
+  width: 100%;
+  /* max-width: 644px; */
+}
+
+.sortSelect {
+  width: 234px;
+  user-select: none;
 }
 
 .notSortable {
