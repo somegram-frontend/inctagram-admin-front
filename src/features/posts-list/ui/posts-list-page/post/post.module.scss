@@ -1,0 +1,149 @@
+.post {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 234px;
+  height: 100%;
+  max-height: 390px;
+
+  @media (width <= 750px) {
+    max-width: 100%;
+  }
+}
+
+.postSliderImage,
+.postSliderImageExpanded {
+  cursor: pointer;
+
+  width: 100%;
+  height: 240px;
+
+  object-fit: cover;
+  border-radius: 1%;
+}
+
+.postSliderImageExpanded {
+  height: 120px;
+}
+
+.postDots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex !important;
+
+  height: 12px;
+
+  text-align: center;
+  list-style: none;
+
+  opacity: 0.9;
+  background-color: var(--color-dark-300);
+  border-radius: 8%;
+
+  & li {
+    cursor: pointer;
+
+    position: relative;
+
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    padding: 0;
+
+    & button {
+      cursor: pointer;
+
+      width: 20px;
+      height: 20px;
+      padding: 5px;
+
+      font-size: 0;
+      line-height: 0;
+      color: transparent;
+
+      background: transparent;
+      border: 0;
+      outline: none;
+
+      &::before {
+        content: "•";
+
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+
+        width: 20px;
+        height: 20px;
+
+        font-size: 18px;
+        -webkit-font-smoothing: antialiased;
+        line-height: 20px;
+        color: var(--color-light-100);
+        text-align: center;
+      }
+    }
+  }
+}
+
+.postDots :global(li.slick-active) button::before {
+  color: var(--color-accent-500);
+}
+
+.postArticle {
+  display: flex;
+  flex-direction: column;
+}
+
+.postArticleHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.postUserAvatar {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.blockIcon {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.postArticleText {
+  display: flex;
+  flex-direction: column;
+  hyphens: auto;
+  height: 70px;
+}
+
+.postTimeAgo {
+  & span {
+    color: var(--color-light-900);
+  }
+}
+
+.postDescription {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  word-break: break-all;
+
+  text-align: justify;
+  text-align-last: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  word-wrap: break-word;
+
+  line-height: 24px;
+}
+
+.postShowMore {
+  display: inline-block;
+}

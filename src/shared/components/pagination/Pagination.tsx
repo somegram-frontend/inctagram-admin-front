@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentRef, forwardRef } from "react";
 import { Select, Typography } from "@honor-ui/inctagram-ui-kit";
 import { ButtonArrow } from "@/shared/components/pagination/buttonArrow";

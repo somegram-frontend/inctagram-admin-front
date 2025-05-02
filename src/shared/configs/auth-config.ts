@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { authorizeSuperAdmin, fetchLoginSa } from "@/features/sign-in/api";
+import { authorizeSuperAdmin, fetchLoginSa } from "@/features/sign-in/api/api";
 import { Path } from "@/shared/const/path";
 
 export const authConfigs: NextAuthOptions = {

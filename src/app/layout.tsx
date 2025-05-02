@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import "@honor-ui/inctagram-ui-kit/css";
-import { ProviderWrapper } from "@/features/provider-wrapper";
+import { ProviderWrapper } from "@/features/provider-wrapper/ui";
 import { Header } from "./_shared/ui/header";
 
 import s from "./layout.module.scss";

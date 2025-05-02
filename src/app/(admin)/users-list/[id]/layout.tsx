@@ -1,4 +1,4 @@
-import { ViewProfilePage } from "@/features/view-profile-page";
+import { ViewProfilePage } from "@/features/view-profile-page/ui";
 
 export default function RootLayout({
   children,

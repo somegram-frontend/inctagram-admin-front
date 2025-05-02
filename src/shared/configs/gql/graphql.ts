@@ -302,6 +302,58 @@ export type GetAllPaymentsQuery = {
   };
 };
 
+export type GetPostsQueryVariables = Exact<{
+  pageNumber: Scalars["Int"]["input"];
+  pageSize: Scalars["Int"]["input"];
+  searchByUsername?: InputMaybe<Scalars["String"]["input"]>;
+  sortBy: Scalars["String"]["input"];
+  sortDirection: SortDirection;
+}>;
+
+export type GetPostsQuery = {
+  __typename?: "Query";
+  getPosts: {
+    __typename?: "PaginatedPostsModel";
+    totalCount: number;
+    pageNumber: number;
+    pagesCount: number;
+    pageSize: number;
+    items: Array<{
+      __typename?: "PostModel";
+      id: string;
+      description?: string | null;
+      createdAt: any;
+      updatedAt?: any | null;
+      getPostsPhotos?: Array<{
+        __typename?: "FileModel";
+        ownerId?: string | null;
+        createdAt?: string | null;
+        originalname?: string | null;
+        size?: number | null;
+        url?: string | null;
+        key?: string | null;
+        postId?: string | null;
+      }> | null;
+      postOwnerInfo: {
+        __typename?: "PostOwnerModel";
+        userId: string;
+        username: string;
+        profileUrl?: string | null;
+        getAvatar?: {
+          __typename?: "FileModel";
+          ownerId?: string | null;
+          createdAt?: string | null;
+          originalname?: string | null;
+          size?: number | null;
+          url?: string | null;
+          key?: string | null;
+          postId?: string | null;
+        } | null;
+      };
+    }>;
+  };
+};
+
 export type AuthorizeSuperAdminMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
@@ -737,6 +789,265 @@ export const GetAllPaymentsDocument = {
     },
   ],
 } as unknown as DocumentNode<GetAllPaymentsQuery, GetAllPaymentsQueryVariables>;
+export const GetPostsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "getPosts" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageNumber" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pageSize" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "searchByUsername" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortBy" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "sortDirection" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "SortDirection" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getPosts" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "queryString" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageNumber" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageNumber" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "pageSize" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "pageSize" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "sortDirection" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortDirection" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "searchByUsername" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "searchByUsername" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "sortBy" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "sortBy" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "totalCount" } },
+                { kind: "Field", name: { kind: "Name", value: "pageNumber" } },
+                { kind: "Field", name: { kind: "Name", value: "pagesCount" } },
+                { kind: "Field", name: { kind: "Name", value: "pageSize" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "items" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "updatedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "getPostsPhotos" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "ownerId" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "createdAt" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "originalname" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "size" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "url" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "key" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "postId" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "postOwnerInfo" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "userId" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "username" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "profileUrl" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "getAvatar" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "ownerId" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "createdAt" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "originalname",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "size" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "url" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "key" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "postId" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetPostsQuery, GetPostsQueryVariables>;
 export const AuthorizeSuperAdminDocument = {
   kind: "Document",
   definitions: [

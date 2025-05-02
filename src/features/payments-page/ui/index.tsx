@@ -22,7 +22,7 @@ import Polygon from "@/shared/components/icons/Polygon";
 import { format } from "date-fns";
 import Pagination from "@/shared/components/pagination/Pagination";
 import { usePaymentsPage, PaymentsSortBy } from "@/features/payments-page/lib";
-import useDebounce from "@/features/userList/ui/hook/useDebounce";
+import useDebounce from "@/features/users-list/ui/hook/useDebounce";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getInitials, parseGraphQLError } from "@/shared/utils";
@@ -122,6 +122,7 @@ export const PaymentsListPage = () => {
         search
         value={search}
         onChange={handleInputChange}
+        onInputClear={() => setSearch("")}
         className={s.searchInput}
       />
       <TableRoot>

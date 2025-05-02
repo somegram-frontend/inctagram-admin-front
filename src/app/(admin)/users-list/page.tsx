@@ -1,4 +1,4 @@
-import { UserList } from "@/features/userList/ui";
+import { UserList } from "@/features/users-list/ui";
 import { Suspense } from "react";
 
 export default function UserListPage() {

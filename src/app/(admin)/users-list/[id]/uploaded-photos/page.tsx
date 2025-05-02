@@ -1,4 +1,4 @@
-import { UploadedPhotosPage } from "@/features/view-profile-page/pages/uploaded-photos-page";
+import { UploadedPhotosPage } from "@/features/view-profile-page/ui/pages/uploaded-photos-page";
 
 export default function UploadedPhotos() {
   return <UploadedPhotosPage />;
