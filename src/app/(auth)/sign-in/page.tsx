@@ -1,4 +1,4 @@
-import { SignIn } from "@/features/sign-in";
+import { SignIn } from "@/features/sign-in/ui";
 
 import s from "./page.module.scss";
 

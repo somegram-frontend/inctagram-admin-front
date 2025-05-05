@@ -1,0 +1,26 @@
+.postsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 29px 12px;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 36px;
+
+  width: 100%;
+  max-width: 972px;
+  margin-bottom: 36px;
+}
+
+.loadMoreTrigger {
+  margin-top: 150px;
+  height: 200px;
+}

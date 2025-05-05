@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { AdminPage } from "@/features/admin-page";
+import { AdminPage } from "@/features/admin-page/ui";
 
 export const metadata: Metadata = {
   title: "Somegram Admin",

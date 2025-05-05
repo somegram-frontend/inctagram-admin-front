@@ -1,3 +1,10 @@
+import { PostsListPage } from "@/features/posts-list/ui";
+import { Suspense } from "react";
+
 export default function PostsList() {
-  return <div>PostsList</div>;
+  return (
+    <Suspense>
+      <PostsListPage />
+    </Suspense>
+  );
 }

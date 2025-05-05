@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@honor-ui/inctagram-ui-kit";
 import { Path } from "@/shared/const/path";
-import { logout } from "@/features/sign-in/useAuth";
+import { logout } from "@/features/sign-in/lib/useAuth";
 
 import s from "./sidebars.module.scss";
 import { usePathname, useRouter } from "next/navigation";
