@@ -36,6 +36,26 @@ enum AccountType {
   Business
 }
 
+type FollowerModel {
+  id: String!
+  createdAt: DateTime!
+  email: String!
+  username: String!
+  about: String
+  dateOfBirth: DateTime
+  firstName: String
+  lastName: String
+  city: String
+  country: String
+  accountType: AccountType!
+  profileLink: String
+  isDeleted: Boolean!
+  banInfo: UserBanInfo
+  getAvatar: FileModel
+  getPostsPhotos: [FileModel!]
+  subscriptionDate: DateTime!
+}
+
 type FileModel {
   ownerId: String
   createdAt: String
@@ -52,6 +72,14 @@ type PaginatedUserModel {
   pagesCount: Int!
   totalCount: Int!
   items: [UserModel!]!
+}
+
+type PaginatedFollowerModel {
+  pageNumber: Int!
+  pageSize: Int!
+  pagesCount: Int!
+  totalCount: Int!
+  items: [FollowerModel!]!
 }
 
 type PaymentsModel {
@@ -82,6 +110,7 @@ type PostModel {
   updatedAt: DateTime
   postOwnerInfo: PostOwnerModel!
   getPostsPhotos: [FileModel!]
+  likeInfo: PostLikeModel!
 }
 
 type PaginatedPostsModel {
@@ -99,6 +128,47 @@ type PostOwnerModel {
   getAvatar: FileModel
 }
 
+type PostLastLikeModel {
+  userId: String!
+  profileUrl: String
+  getAvatar: FileModel
+}
+
+type PostLikeModel {
+  like: Float!
+  lastLike: [PostLastLikeModel!]!
+}
+
+type CommentModel {
+  id: String!
+  text: String!
+  answerForCommentId: String
+  answersCount: Float!
+  createdAt: DateTime!
+  commentOwnerInfo: CommentOwnerModel!
+  likeInfo: CommentLikeModel!
+}
+
+type PaginatedCommentModel {
+  totalCount: Int!
+  pageNumber: Int!
+  pagesCount: Int!
+  pageSize: Int!
+  items: [CommentModel!]!
+}
+
+type CommentOwnerModel {
+  id: String!
+  username: String!
+  profileUrl: String
+  getAvatar: FileModel
+}
+
+type CommentLikeModel {
+  like: Float!
+  dislike: Float!
+}
+
 type Query {
   loginSa: String!
   getUser(id: String!): UserModel
@@ -106,6 +176,10 @@ type Query {
   getPaymentsByUser(queryString: PaymentsQueryStringInput!, userId: String!): PaginatedPaymentsModel!
   getAllPayments(queryString: PaymentsQueryStringInputWithSearch): PaginatedPaymentsModel!
   getPosts(queryString: PostsQueryStringInput): PaginatedPostsModel!
+  getCommentsForPost(queryString: CommentsQueryStringInput, postId: String!): PaginatedCommentModel!
+  getAnswersForComment(queryString: CommentsQueryStringInput, commentId: String!): PaginatedCommentModel!
+  getFollowers(userId: String!, queryString: FollowQueryStringInput): PaginatedFollowerModel!
+  getFollowing(userId: String!, queryString: FollowQueryStringInput): PaginatedFollowerModel!
 }
 
 input UsersQueryStringInput {
@@ -149,6 +223,20 @@ input PostsQueryStringInput {
   sortDirection: SortDirection! = ASC
   searchByUsername: String
   sortBy: String! = "createdAt"
+}
+
+input CommentsQueryStringInput {
+  pageNumber: Int! = 1
+  pageSize: Int! = 8
+  sortDirection: SortDirection! = ASC
+  sortBy: String! = "createdAt"
+}
+
+input FollowQueryStringInput {
+  pageNumber: Int! = 1
+  pageSize: Int! = 8
+  sortDirection: SortDirection! = ASC
+  sortBy: String! = "username"
 }
 
 type Mutation {

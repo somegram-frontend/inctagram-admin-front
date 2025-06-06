@@ -1,8 +1,15 @@
 .page {
-  margin-top: 2rem;
+  margin-block: 2rem;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 2rem;
+  }
 }
 
-.notFollowersTitle {
+.notPaymentsTitle {
   width: 100%;
   height: 100%;
   display: flex;
@@ -11,4 +18,57 @@
   margin-block: auto;
 
   padding-top: calc(200px - 2rem);
+}
+
+.item {
+  user-select: none;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  padding: 10px 0;
+  padding-inline: 5px;
+  border-radius: 5px;
+
+  font-size: var(--font-size-s);
+
+  &:hover {
+    background-color: var(--color-dark-300);
+  }
+
+  &:active {
+    background-color: var(--color-light-900);
+  }
+}
+
+.sortBtn {
+  all: unset;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding-left: 4px;
+
+  color: var(--color-light-100) !important;
+  white-space: nowrap;
+
+  .arrow {
+    margin: 0 0 0 10px;
+    color: var(--color-dark-100);
+    transition: transform 0.2s ease;
+  }
+
+  &.asc .arrow {
+    transform: rotateX(180deg);
+    color: var(--color-light-100);
+  }
+
+  &.desc .arrow {
+    transform: rotateX(0deg);
+    color: var(--color-light-100);
+  }
 }
