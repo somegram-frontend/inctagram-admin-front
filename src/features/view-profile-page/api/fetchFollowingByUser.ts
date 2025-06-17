@@ -2,7 +2,7 @@ import { graphql } from "@/shared/configs/gql";
 import { client } from "@/shared/api/instanse";
 import { GetFollowingByUserQueryVariables } from "@/shared/configs/gql/graphql";
 
-export const getFollowingByUser = graphql(`
+const getFollowingByUser = graphql(`
   query getFollowingByUser(
     $userId: String!
     $pageSize: Int!

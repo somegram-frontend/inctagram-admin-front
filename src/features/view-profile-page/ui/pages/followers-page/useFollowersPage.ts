@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchFollowingByUser } from "@/features/view-profile-page/api/fetchFollowingByUser";
 import { useParams, useRouter } from "next/navigation";
 import { usePaginationParams } from "@/shared/hooks/usePaginationParams";
 import { Path } from "@/shared/const/path";
 import { useState } from "react";
 import { SortDirection } from "@/shared/configs/gql/graphql";
+import { fetchFollowersByUser } from "@/features/view-profile-page/api";
 
 export type SortByParam = "username" | "createdAt";
 
@@ -25,7 +25,7 @@ export const useFollowersPage = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["viewProfile", "Followers", id, pageNumber, pageSize, sortBy],
     queryFn: () =>
-      fetchFollowingByUser({
+      fetchFollowersByUser({
         sortBy,
         pageNumber,
         pageSize,

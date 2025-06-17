@@ -72,3 +72,11 @@
     color: var(--color-light-100);
   }
 }
+
+
+.profileLink{
+  &:hover {
+    text-decoration: underline;
+    color: var(--color-accent-500);
+  }
+}

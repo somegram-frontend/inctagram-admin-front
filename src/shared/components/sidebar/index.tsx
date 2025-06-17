@@ -5,7 +5,6 @@ import {
   ImageOutline,
   LogOutOutline,
   PersonOutline,
-  TrendingUp,
   Typography,
 } from "@honor-ui/inctagram-ui-kit";
 import { Path } from "@/shared/const/path";
@@ -32,14 +31,14 @@ export const Sidebar = () => {
           >
             <PersonOutline /> Users list
           </Typography>
-          <Typography
-            as={"li"}
-            variant={"medium_text14"}
-            onClick={() => router.push(Path.Admin.Statistics)}
-            className={isActivePath(Path.Admin.Statistics) ? s.active : ""}
-          >
-            <TrendingUp /> Statistics
-          </Typography>
+          {/*<Typography*/}
+          {/*  as={"li"}*/}
+          {/*  variant={"medium_text14"}*/}
+          {/*  onClick={() => router.push(Path.Admin.Statistics)}*/}
+          {/*  className={isActivePath(Path.Admin.Statistics) ? s.active : ""}*/}
+          {/*>*/}
+          {/*  <TrendingUp /> Statistics*/}
+          {/*</Typography>*/}
           <Typography
             as={"li"}
             variant={"medium_text14"}
