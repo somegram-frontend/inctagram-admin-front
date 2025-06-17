@@ -2,7 +2,7 @@ import { graphql } from "@/shared/configs/gql";
 import { client } from "@/shared/api/instanse";
 import { GetFollowersByUserQueryVariables } from "@/shared/configs/gql/graphql";
 
-export const getFollowersByUser = graphql(`
+const getFollowersByUser = graphql(`
   query getFollowersByUser(
     $userId: String!
     $pageSize: Int!
@@ -43,7 +43,7 @@ export const getFollowersByUser = graphql(`
   }
 `);
 
-export const fetchFollowingByUser = async (
+export const fetchFollowersByUser = async (
   variables: GetFollowersByUserQueryVariables,
 ) => {
   const data = await client.request(getFollowersByUser, variables);

@@ -90,7 +90,17 @@ export const FollowingPage = () => {
                 <TableTr key={index}>
                   <TableTd>{row.id}</TableTd>
                   <TableTd>{row.username}</TableTd>
-                  <TableTd>{row.profileLink}</TableTd>
+                  <TableTd>
+                    <Typography
+                      href={!!row.profileLink ? row.profileLink : ""}
+                      as={"a"}
+                      variant={"regular_text16"}
+                      className={s.profileLink}
+                    >
+                      {row.profileLink}
+                    </Typography>
+                  </TableTd>
+
                   <TableTd>
                     {format(new Date(row.subscriptionDate), "dd.MM.yyyy")}
                   </TableTd>
